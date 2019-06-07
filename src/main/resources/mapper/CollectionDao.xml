@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adweb.adwebback.dao.CollectionDao">
-  <resultMap id="BaseResultMap" type="com.adweb.adwebback.entity.CollectionKey">
+<mapper namespace="com.adweb.adweb.dao.CollectionDao">
+  <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.CollectionKey">
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
     <id column="knowledge_id" jdbcType="INTEGER" property="knowledgeId" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     user_id, knowledge_id
   </sql>
-  <select id="selectByExample" parameterType="com.adweb.adwebback.entity.CollectionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.adweb.adweb.entity.CollectionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -88,22 +88,22 @@
       </if>
     </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.adweb.adwebback.entity.CollectionKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.adweb.adweb.entity.CollectionKey">
     delete from collection
     where user_id = #{userId,jdbcType=VARCHAR}
       and knowledge_id = #{knowledgeId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.adweb.adwebback.entity.CollectionExample">
+  <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.CollectionExample">
     delete from collection
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.adweb.adwebback.entity.CollectionKey">
+  <insert id="insert" parameterType="com.adweb.adweb.entity.CollectionKey">
     insert into collection (user_id, knowledge_id)
     values (#{userId,jdbcType=VARCHAR}, #{knowledgeId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.adweb.adwebback.entity.CollectionKey">
+  <insert id="insertSelective" parameterType="com.adweb.adweb.entity.CollectionKey">
     insert into collection
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -122,7 +122,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.adweb.adwebback.entity.CollectionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.adweb.adweb.entity.CollectionExample" resultType="java.lang.Long">
     select count(*) from collection
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

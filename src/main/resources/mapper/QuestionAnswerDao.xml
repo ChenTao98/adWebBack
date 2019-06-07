@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adweb.adwebback.dao.QuestionAnswerDao">
-  <resultMap id="BaseResultMap" type="com.adweb.adwebback.entity.QuestionAnswerKey">
+<mapper namespace="com.adweb.adweb.dao.QuestionAnswerDao">
+  <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.QuestionAnswerKey">
     <id column="student_id" jdbcType="VARCHAR" property="studentId" />
     <id column="question_id" jdbcType="INTEGER" property="questionId" />
     <id column="option_id" jdbcType="INTEGER" property="optionId" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List">
     student_id, question_id, option_id
   </sql>
-  <select id="selectByExample" parameterType="com.adweb.adwebback.entity.QuestionAnswerExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.adweb.adweb.entity.QuestionAnswerExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -89,25 +89,25 @@
       </if>
     </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.adweb.adwebback.entity.QuestionAnswerKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.adweb.adweb.entity.QuestionAnswerKey">
     delete from question_answer
     where student_id = #{studentId,jdbcType=VARCHAR}
       and question_id = #{questionId,jdbcType=INTEGER}
       and option_id = #{optionId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.adweb.adwebback.entity.QuestionAnswerExample">
+  <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.QuestionAnswerExample">
     delete from question_answer
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.adweb.adwebback.entity.QuestionAnswerKey">
+  <insert id="insert" parameterType="com.adweb.adweb.entity.QuestionAnswerKey">
     insert into question_answer (student_id, question_id, option_id
       )
     values (#{studentId,jdbcType=VARCHAR}, #{questionId,jdbcType=INTEGER}, #{optionId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.adweb.adwebback.entity.QuestionAnswerKey">
+  <insert id="insertSelective" parameterType="com.adweb.adweb.entity.QuestionAnswerKey">
     insert into question_answer
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="studentId != null">
@@ -132,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.adweb.adwebback.entity.QuestionAnswerExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.adweb.adweb.entity.QuestionAnswerExample" resultType="java.lang.Long">
     select count(*) from question_answer
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

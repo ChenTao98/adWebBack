@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adweb.adwebback.dao.SectionDao">
-  <resultMap id="BaseResultMap" type="com.adweb.adwebback.entity.Section">
+<mapper namespace="com.adweb.adweb.dao.SectionDao">
+  <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.Section">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List">
     id, `name`, summary, order_number, chapter_id
   </sql>
-  <select id="selectByExample" parameterType="com.adweb.adwebback.entity.SectionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.adweb.adweb.entity.SectionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -101,19 +101,19 @@
     delete from section
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.adweb.adwebback.entity.SectionExample">
+  <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.SectionExample">
     delete from section
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adwebback.entity.Section" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Section" useGeneratedKeys="true">
     insert into section (`name`, summary, order_number, 
       chapter_id)
     values (#{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER}, 
       #{chapterId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adwebback.entity.Section" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Section" useGeneratedKeys="true">
     insert into section
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -144,7 +144,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.adweb.adwebback.entity.SectionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.adweb.adweb.entity.SectionExample" resultType="java.lang.Long">
     select count(*) from section
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -184,7 +184,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adwebback.entity.Section">
+  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adweb.entity.Section">
     update section
     <set>
       <if test="name != null">
@@ -202,7 +202,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.adweb.adwebback.entity.Section">
+  <update id="updateByPrimaryKey" parameterType="com.adweb.adweb.entity.Section">
     update section
     set `name` = #{name,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},

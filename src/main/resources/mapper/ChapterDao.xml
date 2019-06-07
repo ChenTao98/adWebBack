@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adweb.adwebback.dao.ChapterDao">
-  <resultMap id="BaseResultMap" type="com.adweb.adwebback.entity.Chapter">
+<mapper namespace="com.adweb.adweb.dao.ChapterDao">
+  <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.Chapter">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List">
     id, `name`, summary, order_number, course_id
   </sql>
-  <select id="selectByExample" parameterType="com.adweb.adwebback.entity.ChapterExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.adweb.adweb.entity.ChapterExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -101,19 +101,19 @@
     delete from chapter
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.adweb.adwebback.entity.ChapterExample">
+  <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.ChapterExample">
     delete from chapter
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adwebback.entity.Chapter" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Chapter" useGeneratedKeys="true">
     insert into chapter (`name`, summary, order_number, 
       course_id)
     values (#{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER}, 
       #{courseId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adwebback.entity.Chapter" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Chapter" useGeneratedKeys="true">
     insert into chapter
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -144,7 +144,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.adweb.adwebback.entity.ChapterExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.adweb.adweb.entity.ChapterExample" resultType="java.lang.Long">
     select count(*) from chapter
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -184,7 +184,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adwebback.entity.Chapter">
+  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adweb.entity.Chapter">
     update chapter
     <set>
       <if test="name != null">
@@ -202,7 +202,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.adweb.adwebback.entity.Chapter">
+  <update id="updateByPrimaryKey" parameterType="com.adweb.adweb.entity.Chapter">
     update chapter
     set `name` = #{name,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},

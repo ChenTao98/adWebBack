@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adweb.adwebback.dao.OptionDao">
-  <resultMap id="BaseResultMap" type="com.adweb.adwebback.entity.Option">
+<mapper namespace="com.adweb.adweb.dao.OptionDao">
+  <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.Option">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="question_id" jdbcType="INTEGER" property="questionId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, question_id, content, is_correct
   </sql>
-  <select id="selectByExample" parameterType="com.adweb.adwebback.entity.OptionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.adweb.adweb.entity.OptionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,19 +100,19 @@
     delete from option
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.adweb.adwebback.entity.OptionExample">
+  <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.OptionExample">
     delete from option
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adwebback.entity.Option" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Option" useGeneratedKeys="true">
     insert into option (question_id, content, is_correct
       )
     values (#{questionId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{isCorrect,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adwebback.entity.Option" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Option" useGeneratedKeys="true">
     insert into option
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="questionId != null">
@@ -137,7 +137,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.adweb.adwebback.entity.OptionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.adweb.adweb.entity.OptionExample" resultType="java.lang.Long">
     select count(*) from option
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -173,7 +173,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adwebback.entity.Option">
+  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adweb.entity.Option">
     update option
     <set>
       <if test="questionId != null">
@@ -188,7 +188,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.adweb.adwebback.entity.Option">
+  <update id="updateByPrimaryKey" parameterType="com.adweb.adweb.entity.Option">
     update option
     set question_id = #{questionId,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},

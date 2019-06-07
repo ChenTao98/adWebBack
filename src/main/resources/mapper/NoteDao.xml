@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adweb.adwebback.dao.NoteDao">
-  <resultMap id="BaseResultMap" type="com.adweb.adwebback.entity.Note">
+<mapper namespace="com.adweb.adweb.dao.NoteDao">
+  <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.Note">
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
     <id column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.adweb.adwebback.entity.Note">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.adweb.adweb.entity.Note">
     <result column="content" jdbcType="LONGVARBINARY" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,7 +72,7 @@
   <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.adweb.adwebback.entity.NoteExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.adweb.adweb.entity.NoteExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
       </if>
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.adweb.adwebback.entity.NoteExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.adweb.adweb.entity.NoteExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -118,7 +118,7 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="com.adweb.adwebback.entity.NoteKey" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="com.adweb.adweb.entity.NoteKey" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -127,24 +127,24 @@
     where user_id = #{userId,jdbcType=VARCHAR}
       and url = #{url,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.adweb.adwebback.entity.NoteKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.adweb.adweb.entity.NoteKey">
     delete from note
     where user_id = #{userId,jdbcType=VARCHAR}
       and url = #{url,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.adweb.adwebback.entity.NoteExample">
+  <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.NoteExample">
     delete from note
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.adweb.adwebback.entity.Note">
+  <insert id="insert" parameterType="com.adweb.adweb.entity.Note">
     insert into note (user_id, url, content
       )
     values (#{userId,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARBINARY}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.adweb.adwebback.entity.Note">
+  <insert id="insertSelective" parameterType="com.adweb.adweb.entity.Note">
     insert into note
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -169,7 +169,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.adweb.adwebback.entity.NoteExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.adweb.adweb.entity.NoteExample" resultType="java.lang.Long">
     select count(*) from note
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -209,7 +209,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adwebback.entity.Note">
+  <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adweb.entity.Note">
     update note
     <set>
       <if test="content != null">
@@ -219,7 +219,7 @@
     where user_id = #{userId,jdbcType=VARCHAR}
       and url = #{url,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.adweb.adwebback.entity.Note">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.adweb.adweb.entity.Note">
     update note
     set content = #{content,jdbcType=LONGVARBINARY}
     where user_id = #{userId,jdbcType=VARCHAR}
