@@ -39,6 +39,6 @@ mybatis:
   mapper-locations: classpath*:mapper/*.xml
 logging:
   level:
-    com.adweb.adwebback.dao: DEBUG
+    com.adweb.adweb.dao: DEBUG
 #server:
 #  port:
