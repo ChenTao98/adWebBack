@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div id="header">
+    <div th:replace="~{header/header :: head-myinfo}"></div>
+</div>
+<div id="main">
+    <h1>我的个人信息</h1>
+</div>
+
+<div id="footer">
+    <div th:replace="~{header/footer :: footer-fragment}"></div>
+</div>
+</body>
+</html>

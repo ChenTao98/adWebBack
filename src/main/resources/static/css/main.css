@@ -1,0 +1,26 @@
+html,body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+#header {
+    padding: 0;
+    width: 80%;
+    margin: auto;
+}
+#main {
+    width: 80%;
+    margin: auto;
+    flex: 1;
+}
+#footer {
+    bottom:0;
+    width:100%;
+}

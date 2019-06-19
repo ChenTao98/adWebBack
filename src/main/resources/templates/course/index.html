@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程信息</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div id="header">
+    <div th:replace="~{header/header :: head-course}"></div>
+</div>
+<div id="main">
+    <h1>我的课程</h1>
+    <table class="table table-bordered table-striped">
+        <caption th:text="'课程数: ' + ${list.size()} + ''"></caption>
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col" th:text="'#'+${list.size()}"></th>
+            <th scope="col">课程名称</th>
+            <th scope="col">课程开始时间</th>
+            <th scope="col">课程结束时间</th>
+            <th scope="col">学分数</th>
+            <th scope="col">下载</th>
+        </tr>
+        </thead>
+        <tbody>
+<!--        <tr th:each="apk,status: ${list}">-->
+<!--            <td th:text="|${status.count}|"></td>-->
+<!--            <td th:text="${apk.getId()}"></td>-->
+<!--            <td th:text="${apk.getVersionName()}"></td>-->
+<!--            <td th:text="${#dates.format(apk.getIssueDate(), 'yyyy-MM-dd')}"></td>-->
+<!--            <td th:text="${apk.getIssueComment()}"></td>-->
+<!--            <td><a th:href="${'/installer/'+apk.getUrl()}">下载</a></td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+</div>
+
+<div id="footer">
+    <div th:replace="~{header/footer :: footer-fragment}"></div>
+</div>
+</body>
+</html>
