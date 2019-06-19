@@ -64,6 +64,20 @@ public class Course implements Serializable {
     private Integer orderNumber;
 
     private static final long serialVersionUID = 1L;
+    public Course(){}
+
+    public Course(String name, String summary, String teacherId, Date startTime, Date endTime, String imageSrc, Integer credit, String type, Integer themeId, Integer orderNumber) {
+        this.name = name;
+        this.summary = summary;
+        this.teacherId = teacherId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.imageSrc = imageSrc;
+        this.credit = credit;
+        this.type = type;
+        this.themeId = themeId;
+        this.orderNumber = orderNumber;
+    }
 
     public Integer getId() {
         return id;
@@ -216,5 +230,15 @@ public class Course implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    private String themeName;
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
     }
 }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2019-06-07 05:04:10
--- 服务器版本： 10.1.36-MariaDB
--- PHP 版本： 7.2.11
+-- 生成日期： 2019-06-19 15:59:32
+-- 服务器版本： 10.1.40-MariaDB
+-- PHP 版本： 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -89,7 +89,9 @@ CREATE TABLE `course` (
 CREATE TABLE `course_selection` (
   `student_id` varchar(255) NOT NULL COMMENT '学生id',
   `course_id` int(31) NOT NULL COMMENT '课程id',
-  `status` int(1) NOT NULL COMMENT '课程完成状态 1表示已完成 0表示未完成'
+  `status` int(1) NOT NULL COMMENT '课程完成状态 1表示已完成 0表示未完成',
+  `chapter` int(11) DEFAULT NULL COMMENT '当前学到哪个章节的id',
+  `section_id` int(11) DEFAULT NULL COMMENT '当前学到哪个小节'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='选课表';
 
 -- --------------------------------------------------------

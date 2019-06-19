@@ -18,4 +18,9 @@ public class CourseServiceImpl implements CourseService {
         courseExample.createCriteria().andTeacherIdEqualTo(teacherId);
         return courseDao.selectByExample(courseExample);
     }
+
+    @Override
+    public int insertCourse(Course course) {
+        return courseDao.insertSelective(course);
+    }
 }
