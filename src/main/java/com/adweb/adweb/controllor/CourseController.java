@@ -5,7 +5,6 @@ import com.adweb.adweb.entity.Course;
 import com.adweb.adweb.entity.Knowledge;
 import com.adweb.adweb.entity.Section;
 import com.adweb.adweb.service.*;
-import com.adweb.adweb.service.Tl.TlRobotService;
 import com.adweb.adweb.util.Message;
 import com.adweb.adweb.util.PathUtil;
 import com.adweb.adweb.util.SessionUtil;
@@ -37,8 +36,6 @@ public class CourseController {
     private SectionService sectionService;
     @Autowired
     private KnowledgeService knowledgeService;
-    @Autowired
-    private TlRobotService tlRobotService;
     private static final String courseImageUp = PathUtil.COURSE_IMAGE_UP;
 
     @RequestMapping({"", "index", "/"})
