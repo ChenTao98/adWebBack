@@ -34,6 +34,16 @@ public class Chapter implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Chapter() {
+    }
+
+    public Chapter(String name, String summary, Integer orderNumber, Integer courseId) {
+        this.name = name;
+        this.summary = summary;
+        this.orderNumber = orderNumber;
+        this.courseId = courseId;
+    }
+
     public Integer getId() {
         return id;
     }

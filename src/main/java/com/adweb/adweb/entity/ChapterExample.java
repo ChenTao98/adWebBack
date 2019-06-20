@@ -125,262 +125,262 @@ public class ChapterExample {
         }
 
         public Criteria andIdIsNull() {
-            addCriterion("id is null");
+            addCriterion("chapter.id is null");
             return (Criteria) this;
         }
 
         public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+            addCriterion("chapter.id is not null");
             return (Criteria) this;
         }
 
         public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+            addCriterion("chapter.id =", value, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+            addCriterion("chapter.id <>", value, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+            addCriterion("chapter.id >", value, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+            addCriterion("chapter.id >=", value, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+            addCriterion("chapter.id <", value, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+            addCriterion("chapter.id <=", value, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+            addCriterion("chapter.id in", values, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+            addCriterion("chapter.id not in", values, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+            addCriterion("chapter.id between", value1, value2, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+            addCriterion("chapter.id not between", value1, value2, "chapter.id");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNull() {
-            addCriterion("`name` is null");
+            addCriterion("`chapter.name` is null");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNotNull() {
-            addCriterion("`name` is not null");
+            addCriterion("`chapter.name` is not null");
             return (Criteria) this;
         }
 
         public Criteria andNameEqualTo(String value) {
-            addCriterion("`name` =", value, "name");
+            addCriterion("`chapter.name` =", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotEqualTo(String value) {
-            addCriterion("`name` <>", value, "name");
+            addCriterion("`chapter.name` <>", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThan(String value) {
-            addCriterion("`name` >", value, "name");
+            addCriterion("`chapter.name` >", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("`name` >=", value, "name");
+            addCriterion("`chapter.name` >=", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThan(String value) {
-            addCriterion("`name` <", value, "name");
+            addCriterion("`chapter.name` <", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("`name` <=", value, "name");
+            addCriterion("`chapter.name` <=", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("`name` like", value, "name");
+            addCriterion("`chapter.name` like", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("`name` not like", value, "name");
+            addCriterion("`chapter.name` not like", value, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameIn(List<String> values) {
-            addCriterion("`name` in", values, "name");
+            addCriterion("`chapter.name` in", values, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotIn(List<String> values) {
-            addCriterion("`name` not in", values, "name");
+            addCriterion("`chapter.name` not in", values, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("`name` between", value1, value2, "name");
+            addCriterion("`chapter.name` between", value1, value2, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("`name` not between", value1, value2, "name");
+            addCriterion("`chapter.name` not between", value1, value2, "chapter.name");
             return (Criteria) this;
         }
 
         public Criteria andSummaryIsNull() {
-            addCriterion("summary is null");
+            addCriterion("chapter.summary is null");
             return (Criteria) this;
         }
 
         public Criteria andSummaryIsNotNull() {
-            addCriterion("summary is not null");
+            addCriterion("chapter.summary is not null");
             return (Criteria) this;
         }
 
         public Criteria andSummaryEqualTo(String value) {
-            addCriterion("summary =", value, "summary");
+            addCriterion("chapter.summary =", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryNotEqualTo(String value) {
-            addCriterion("summary <>", value, "summary");
+            addCriterion("chapter.summary <>", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryGreaterThan(String value) {
-            addCriterion("summary >", value, "summary");
+            addCriterion("chapter.summary >", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryGreaterThanOrEqualTo(String value) {
-            addCriterion("summary >=", value, "summary");
+            addCriterion("chapter.summary >=", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryLessThan(String value) {
-            addCriterion("summary <", value, "summary");
+            addCriterion("chapter.summary <", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryLessThanOrEqualTo(String value) {
-            addCriterion("summary <=", value, "summary");
+            addCriterion("chapter.summary <=", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryLike(String value) {
-            addCriterion("summary like", value, "summary");
+            addCriterion("chapter.summary like", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryNotLike(String value) {
-            addCriterion("summary not like", value, "summary");
+            addCriterion("chapter.summary not like", value, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryIn(List<String> values) {
-            addCriterion("summary in", values, "summary");
+            addCriterion("chapter.summary in", values, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryNotIn(List<String> values) {
-            addCriterion("summary not in", values, "summary");
+            addCriterion("chapter.summary not in", values, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryBetween(String value1, String value2) {
-            addCriterion("summary between", value1, value2, "summary");
+            addCriterion("chapter.summary between", value1, value2, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andSummaryNotBetween(String value1, String value2) {
-            addCriterion("summary not between", value1, value2, "summary");
+            addCriterion("chapter.summary not between", value1, value2, "chapter.summary");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberIsNull() {
-            addCriterion("order_number is null");
+            addCriterion("chapter.order_number is null");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberIsNotNull() {
-            addCriterion("order_number is not null");
+            addCriterion("chapter.order_number is not null");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberEqualTo(Integer value) {
-            addCriterion("order_number =", value, "orderNumber");
+            addCriterion("chapter.order_number =", value, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberNotEqualTo(Integer value) {
-            addCriterion("order_number <>", value, "orderNumber");
+            addCriterion("chapter.order_number <>", value, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberGreaterThan(Integer value) {
-            addCriterion("order_number >", value, "orderNumber");
+            addCriterion("chapter.order_number >", value, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberGreaterThanOrEqualTo(Integer value) {
-            addCriterion("order_number >=", value, "orderNumber");
+            addCriterion("chapter.order_number >=", value, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberLessThan(Integer value) {
-            addCriterion("order_number <", value, "orderNumber");
+            addCriterion("chapter.order_number <", value, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberLessThanOrEqualTo(Integer value) {
-            addCriterion("order_number <=", value, "orderNumber");
+            addCriterion("chapter.order_number <=", value, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberIn(List<Integer> values) {
-            addCriterion("order_number in", values, "orderNumber");
+            addCriterion("chapter.order_number in", values, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberNotIn(List<Integer> values) {
-            addCriterion("order_number not in", values, "orderNumber");
+            addCriterion("chapter.order_number not in", values, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberBetween(Integer value1, Integer value2) {
-            addCriterion("order_number between", value1, value2, "orderNumber");
+            addCriterion("chapter.order_number between", value1, value2, "orderNumber");
             return (Criteria) this;
         }
 
         public Criteria andOrderNumberNotBetween(Integer value1, Integer value2) {
-            addCriterion("order_number not between", value1, value2, "orderNumber");
+            addCriterion("chapter.order_number not between", value1, value2, "orderNumber");
             return (Criteria) this;
         }
 

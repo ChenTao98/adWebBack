@@ -7,4 +7,7 @@ import java.util.List;
 public interface CourseService {
     List<Course> getCourseByTeacher(String teacherId);
     int insertCourse(Course course);
+    Course getCourseById(Integer integer,String teacherId);
+    Course getCourseByChapter(Integer chapter);
+    Course getCourseBySection(Integer section);
 }

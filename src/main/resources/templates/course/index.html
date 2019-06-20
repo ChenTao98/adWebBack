@@ -46,7 +46,7 @@
             <td th:text="${course.getCredit()}"></td>
             <td th:text="${course.getType()}"></td>
             <td th:text="${course.getThemeName()}"></td>
-            <td><a th:href="${'course/{'+course.getId()+'}'}">查看</a></td>
+            <td><a th:href="${'/course/'+course.getId()+''}">查看</a></td>
         </tr>
         </tbody>
     </table>
