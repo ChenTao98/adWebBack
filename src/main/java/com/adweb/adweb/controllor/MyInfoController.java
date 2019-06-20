@@ -78,48 +78,16 @@ public class MyInfoController {
         String userId = (String)session.getAttribute("openId");
 
         // 上传图片
-        // 检查文件类型
-        String imageOriginName = imageFile.getOriginalFilename();
-        String fileType = imageOriginName.substring(imageOriginName.lastIndexOf(".")+1);
-        LOGGER.info("upload file type: {}", fileType);
-        if (!isValidFileType(imageFile.getContentType())) {
-            model.addAttribute("hint", "文件类型不合法！");
-            return "myInfo/index";
-        }
-        // 删除原有文件
-        String imageSrc = teacherAvatarService.getAvatarSrcByUserId(userId);
-        model.addAttribute("imageSrc", PathUtil.TEACHER_IMAGE_HTML + imageSrc);
-        if (!(StringUtil.isEmpty(imageSrc) || imageSrc.equals("default.jpg"))) {
-            // 需要删除原有的文件
-            File file = new File(PathUtil.TEACHER_IMAGE_UP + imageSrc);
-            if (file.exists()) {
-                if (!file.delete()) {
-                    model.addAttribute("hint", "删除原有的头像失败！");
-                    return "myInfo/index";
-                }
+        if (!imageFile.isEmpty()) {
+            if (!uploadImage(imageFile, model, userId)) {
+                //上传失败
+                return "myInfo/index";
             }
         }
-
-        // 上传新文件
-        StringBuilder tmp = new StringBuilder();
-        tmp.append(UUID.randomUUID().toString().replaceAll("-",""));
-        tmp.append(".");
-        tmp.append(fileType);
-        try {
-            imageFile.transferTo(new File(PathUtil.TEACHER_IMAGE_UP + tmp));
-        } catch (IOException e) {
-            model.addAttribute("hint", "头像上传失败！");
-            return "myInfo/index";
-        }
-        model.addAttribute("imageSrc", PathUtil.TEACHER_IMAGE_HTML + tmp.toString());
-
-        // 修改TeacherAvatarService
-        TeacherAvatar teacherAvatar = new TeacherAvatar();
-        teacherAvatar.setImageSrc(tmp.toString());
-        teacherAvatar.setTeacherId(userId);
-        if (!teacherAvatarService.insertRecord(teacherAvatar) ) {
-            model.addAttribute("hint", "数据更新失败！");
-            return "myInfo/index";
+        else {
+            // 还是要添加一下原有的图片
+            String imageSrc = teacherAvatarService.getAvatarSrcByUserId(userId);
+            model.addAttribute("imageSrc", PathUtil.TEACHER_IMAGE_HTML + imageSrc);
         }
 
         // 修改用户信息
@@ -141,5 +109,56 @@ public class MyInfoController {
     public boolean isValidFileType(String contentType) {
         String fileType = contentType.split("/")[0];
         return fileType.equals("image");
+    }
+
+    /**
+     * 处理图片
+     * */
+    public boolean uploadImage(MultipartFile imageFile, Model model, String userId) {
+        // 上传图片
+        // 检查文件类型
+        String imageOriginName = imageFile.getOriginalFilename();
+        String fileType = imageOriginName.substring(imageOriginName.lastIndexOf(".")+1);
+        LOGGER.info("upload file type: {}", fileType);
+        if (!isValidFileType(imageFile.getContentType())) {
+            model.addAttribute("hint", "文件类型不合法！");
+            return false;
+        }
+        // 删除原有文件
+        String imageSrc = teacherAvatarService.getAvatarSrcByUserId(userId);
+        model.addAttribute("imageSrc", PathUtil.TEACHER_IMAGE_HTML + imageSrc);
+        if (!(StringUtil.isEmpty(imageSrc) || imageSrc.equals("default.jpg"))) {
+            // 需要删除原有的文件
+            File file = new File(PathUtil.TEACHER_IMAGE_UP + imageSrc);
+            if (file.exists()) {
+                if (!file.delete()) {
+                    model.addAttribute("hint", "删除原有的头像失败！");
+                    return false;
+                }
+            }
+        }
+
+        // 上传新文件
+        StringBuilder tmp = new StringBuilder();
+        tmp.append(UUID.randomUUID().toString().replaceAll("-",""));
+        tmp.append(".");
+        tmp.append(fileType);
+        try {
+            imageFile.transferTo(new File(PathUtil.TEACHER_IMAGE_UP + tmp));
+        } catch (IOException e) {
+            model.addAttribute("hint", "头像上传失败！");
+            return false;
+        }
+        model.addAttribute("imageSrc", PathUtil.TEACHER_IMAGE_HTML + tmp.toString());
+
+        // 修改TeacherAvatarService
+        TeacherAvatar teacherAvatar = new TeacherAvatar();
+        teacherAvatar.setImageSrc(tmp.toString());
+        teacherAvatar.setTeacherId(userId);
+        if (!teacherAvatarService.insertRecord(teacherAvatar) ) {
+            model.addAttribute("hint", "数据更新失败！");
+            return false;
+        }
+        return true;
     }
 }
