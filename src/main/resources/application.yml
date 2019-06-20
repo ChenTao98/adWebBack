@@ -30,8 +30,8 @@ spring:
   #        min-idle: 0
   #    timeout: 5000ms
   resources:
-    #    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:/home/adweb/peoject
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:F:/adweb/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:/root/ADCourse/static
+    # static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:F:/adweb/
 
 
 mybatis:
@@ -40,5 +40,5 @@ mybatis:
 logging:
   level:
     com.adweb.adweb.dao: DEBUG
-#server:
-#  port:
+server:
+  port: 18080

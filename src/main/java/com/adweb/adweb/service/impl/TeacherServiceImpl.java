@@ -29,4 +29,14 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return teachers.get(0);
     }
+
+    @Override
+    public Teacher getTeacherByUserId(String userId) {
+        return teacherDao.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public boolean updateTeacherInfo(Teacher teacher) {
+        return teacherDao.updateByPrimaryKeySelective(teacher) == 1;
+    }
 }

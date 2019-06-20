@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/my-info.css}"/>
 </head>
 <body>
 <div id="header">
@@ -14,10 +15,92 @@
 </div>
 <div id="main">
     <h1>我的个人信息</h1>
+    <hr />
+
+    <img th:src="${imageSrc}" class="img-thumbnail"/>
+    <div id="info_show">
+        <div class="name-info"><span>name: </span><span th:text="${name}"></span></div>
+        <div class="email-info"><span>email: </span><span th:text="${email}"></span></div>
+        <button class="btn btn-primary" id="edit-button">编辑</button>
+    </div>
+
+    <form id="form" method="post" action="/myinfo/modify" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="imageFile">头像文件：</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="name">姓名</label>
+            <input type="text" class="form-control" name="name" id="name" th:value="${name}" th:placeholder="新姓名" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">邮箱地址：</label>
+            <input type="email" class="form-control" name="email" id="email" th:value="${email}" th:placeholder="新邮箱" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="confirm-button">确认</button>
+
+    </form>
+
+    <p id="hint" th:text="${hint}"></p>
 </div>
 
 <div id="footer">
     <div th:replace="~{header/footer :: footer-fragment}"></div>
 </div>
+
+<script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
+<script>
+    $(function(){
+        $("#edit-button").click(function (event) {
+            enterEdit();
+        });
+
+
+        var hint = $("#hint").html();
+        if (!hint) {
+            // 第一次进入页面
+            enterInfo();
+            return;
+        }
+
+        if (hint == "修改成功！") {
+            hintSuccess();
+            enterInfo();
+            return;
+        }
+        else {
+            hintWarning();
+            enterEdit();
+        }
+    });
+
+    // 进入编辑状态
+    function enterEdit() {
+        $("#info_show").hide();
+        $("#form").show();
+    }
+
+    // 进入信息显示状态
+    function enterInfo() {
+        $("#form").hide();
+        $("#info_show").show();
+    }
+
+    // 将hint设置为warning状态
+    function hintWarning() {
+        $("#hint").removeClass("success");
+        $("#hint").addClass("warning");
+    }
+
+    // 将hint设置为success状态
+    function hintSuccess() {
+        $("#hint").removeClass("warning");
+        $("#hint").addClass("success");
+    }
+
+</script>
 </body>
 </html>
