@@ -17,7 +17,7 @@ public class LoginRegisterController {
     @Autowired
     private TeacherService teacherService;
 
-    @RequestMapping(value = {"", "/", "/index", "/index.html", "/index.php"})
+    @RequestMapping(value = {"", "/", "/index", "/index.html", "/index.php", "/login", "/login.html"})
     public String index(Model model) {
         model.addAttribute("login_hint", "");
         model.addAttribute("register_hint", "");
