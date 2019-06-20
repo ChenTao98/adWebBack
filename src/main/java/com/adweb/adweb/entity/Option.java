@@ -29,6 +29,14 @@ public class Option implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Option(String content, Integer isCorrect) {
+        this.content = content;
+        this.isCorrect = isCorrect;
+    }
+
+    public Option() {
+    }
+
     public Integer getId() {
         return id;
     }

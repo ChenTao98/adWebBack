@@ -42,6 +42,18 @@ public class Knowledge implements Serializable {
      */
     private Integer whoSay;
 
+    public Knowledge(Integer type, String content, Integer orderNumber, Integer sectionId, Integer importanceDegree, Integer whoSay) {
+        this.type = type;
+        this.content = content;
+        this.orderNumber = orderNumber;
+        this.sectionId = sectionId;
+        this.importanceDegree = importanceDegree;
+        this.whoSay = whoSay;
+    }
+
+    public Knowledge() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {

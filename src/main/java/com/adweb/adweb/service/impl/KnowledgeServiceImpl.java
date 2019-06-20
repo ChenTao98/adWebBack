@@ -6,6 +6,7 @@ import com.adweb.adweb.entity.KnowledgeExample;
 import com.adweb.adweb.service.KnowledgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     public List<Knowledge> getKnowledgeBySection(Integer sectionId) {
         KnowledgeExample knowledgeExample=new KnowledgeExample();
         knowledgeExample.createCriteria().andSectionIdEqualTo(sectionId);
+        knowledgeExample.setOrderByClause("order_number");
         return knowledgeDao.selectByExample(knowledgeExample);
     }
 
@@ -26,11 +28,24 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     }
 
     @Override
+    @Transactional
     public int insertKnowledge(List<Knowledge> knowledgeList) {
         int count=0;
         for (Knowledge knowledge : knowledgeList) {
             count += knowledgeDao.insertSelective(knowledge);
         }
         return count;
+    }
+
+    @Override
+    public int getLargestKnowledgeOrderNumber(Integer section) {
+        KnowledgeExample knowledgeExample=new KnowledgeExample();
+        knowledgeExample.createCriteria().andSectionIdEqualTo(section);
+        knowledgeExample.setOrderByClause("order_number desc");
+        List<Knowledge> list=knowledgeDao.selectByExample(knowledgeExample);
+        if(list.size()!=0){
+            return list.get(0).getOrderNumber();
+        }
+        return 0;
     }
 }

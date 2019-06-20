@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>课程信息</title>
+    <title>章节信息</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
@@ -43,7 +43,7 @@
     <div th:replace="~{header/header :: head-course}"></div>
 </div>
 <div id="main">
-    <h1>我的课程</h1>
+    <h1>我的课程-章节信息</h1>
     <table class="table table-bordered table-striped">
         <tbody>
         <tr>
@@ -79,10 +79,10 @@
         </thead>
         <tbody>
         <tr th:each="section,status: ${list}">
-            <td th:text="|${status.count}|"></td>
-            <td th:text="${section.getName()}"></td>
-            <td th:text="${section.getSummary()}"></td>
-            <td th:text="${section.getOrderNumber()}"></td>
+            <td class="wrapTd" th:text="|${status.count}|"></td>
+            <td class="wrapTd" th:text="${section.getName()}"></td>
+            <td class="wrapTd" th:text="${section.getSummary()}"></td>
+            <td class="wrapTd" th:text="${section.getOrderNumber()}"></td>
             <td><a th:href="${'/course/section/'+section.getId()}">查看</a></td>
         </tr>
         </tbody>
@@ -98,16 +98,17 @@
                             aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">添加小节</h4>
                 </div>
-                <form method="post" th:action="${'/course/add/'+chapter.getId()+'/section'}" enctype="multipart/form-data">
+                <form method="post" th:action="${'/course/add/'+chapter.getId()+'/section'}"
+                      enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group input-group">
                             <span class="input-group-addon">小节名称</span>
-                            <input type="text" class="form-control" name="name" placeholder="课程名称"
+                            <input type="text" class="form-control" name="name" placeholder="小节名称"
                                    aria-describedby="basic-addon1" required>
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon">小节摘要</span>
-                            <input type="text" class="form-control" name="summary" placeholder="课程简介"
+                            <input type="text" class="form-control" name="summary" placeholder="小节摘要"
                                    aria-describedby="basic-addon1" required>
                         </div>
                     </div>

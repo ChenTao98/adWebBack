@@ -16,6 +16,7 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getCourseByTeacher(String teacherId) {
         CourseExample courseExample=new CourseExample();
         courseExample.createCriteria().andTeacherIdEqualTo(teacherId);
+        courseExample.setOrderByClause("order_number");
         return courseDao.selectByExample(courseExample);
     }
 

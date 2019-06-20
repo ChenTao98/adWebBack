@@ -1,6 +1,7 @@
 package com.adweb.adweb.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * choice_question
@@ -28,6 +29,16 @@ public class ChoiceQuestion implements Serializable {
     private String answerKey;
 
     private static final long serialVersionUID = 1L;
+
+    public ChoiceQuestion(Integer sectionId, String content, String answerKey, List<Option> optionList) {
+        this.sectionId = sectionId;
+        this.content = content;
+        this.answerKey = answerKey;
+        this.optionList = optionList;
+    }
+
+    public ChoiceQuestion() {
+    }
 
     public Integer getId() {
         return id;
@@ -103,5 +114,14 @@ public class ChoiceQuestion implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+    private List<Option> optionList;
+
+    public List<Option> getOptionList() {
+        return optionList;
+    }
+
+    public void setOptionList(List<Option> optionList) {
+        this.optionList = optionList;
     }
 }
