@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2019-06-20 11:35:39
+-- 生成日期： 2019-06-20 12:08:35
 -- 服务器版本： 10.1.40-MariaDB
 -- PHP 版本： 7.3.5
 
@@ -187,6 +187,15 @@ CREATE TABLE `teacher` (
   `password` varchar(255) NOT NULL COMMENT '登录密码',
   `email` varchar(31) NOT NULL COMMENT '登录邮箱'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 表的结构 `teacher_avatar`
+--
+
+CREATE TABLE `teacher_avatar` (
+  `teacher_id` varchar(255) NOT NULL,
+  `image_src` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
