@@ -45,4 +45,8 @@ public class CourseServiceImpl implements CourseService {
     public Course getCourseBySection(Integer section) {
         return courseDao.getCourseBySection(section);
     }
+    @Override
+    public Course getCourseByStudent(Integer id,String studentId) {
+        return courseDao.getCourseDetailById(id,studentId);
+    }
 }

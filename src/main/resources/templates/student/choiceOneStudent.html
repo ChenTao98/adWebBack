@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生选课信息</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    <style type="text/css">
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        div > img {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .wrapTd {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .leftTd {
+            font-weight: bold;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${message!=null}">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        alert(/*[[${message}]]*/);
+        /*]]>*/
+    </script>
+</div>
+<div id="header">
+    <div th:replace="~{header/header :: head-student}"></div>
+</div>
+<div id="main">
+    <h1>学生作业信息</h1>
+    <hr/>
+    <div th:if="${student==null}">
+        <h3>该生没有做这个小节的作业</h3>
+    </div>
+    <div th:if="${student!=null}">
+        <h3 th:text="${'小节：'+ student.getSectionName()}"></h3>
+        <h4 th:text="${'学生：'+ student.getStudentName()}"></h4>
+        <br/>
+        <br/>
+        <table class="table table-bordered table-striped" th:with="questionList=${student.getChoiceQuestionList()}">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" th:text="'#'+${questionList.size()}"></th>
+                <th scope="col">题目</th>
+                <th scope="col">选项A</th>
+                <th scope="col">选项B</th>
+                <th scope="col">选择C</th>
+                <th scope="col">正确答案</th>
+                <th scope="col">学生答案</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="question,status:${questionList}" th:with="optionList=${question.getOptionList()}">
+                <td class="wrapTd" th:text="|${status.count}|"></td>
+                <td class="wrapTd" th:text="${question.getContent()}"></td>
+                <td class="wrapTd" th:text="${optionList.get(0).getContent()}"></td>
+                <td class="wrapTd" th:text="${optionList.get(1).getContent()}"></td>
+                <td class="wrapTd" th:text="${optionList.get(2).getContent()}"></td>
+                <td class="wrapTd">
+                    <span th:if="${optionList.get(0).getIsCorrect()==1}">A</span>
+                    <span th:if="${optionList.get(1).getIsCorrect()==1}">B</span>
+                    <span th:if="${optionList.get(2).getIsCorrect()==1}">C</span>
+                </td>
+                <td class="wrapTd">
+                    <span th:if="${optionList.get(0).getId()==question.getAnswerId()}">A</span>
+                    <span th:if="${optionList.get(1).getId()==question.getAnswerId()}">B</span>
+                    <span th:if="${optionList.get(2).getId()==question.getAnswerId()}">C</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="footer">
+    <div th:replace="~{header/footer :: footer-fragment}"></div>
+</div>
+</body>
+</html>

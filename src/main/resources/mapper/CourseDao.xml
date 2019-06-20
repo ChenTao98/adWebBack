@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.adweb.adweb.dao.CourseDao">
+  <resultMap id="DetailMap" type="com.adweb.adweb.entity.Course">
+    <id column="course_id" jdbcType="INTEGER" property="id"/>
+    <result column="course_name" jdbcType="VARCHAR" property="name"/>
+    <result column="course_summary" jdbcType="VARCHAR" property="summary"/>
+    <result column="course_teacher_id" jdbcType="VARCHAR" property="teacherId"/>
+    <result column="course_start_time" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="course_end_time" jdbcType="TIMESTAMP" property="endTime"/>
+    <result column="course_image_src" jdbcType="VARCHAR" property="imageSrc"/>
+    <result column="course_credit" jdbcType="INTEGER" property="credit"/>
+    <result column="course_type" jdbcType="VARCHAR" property="type"/>
+    <result column="course_theme_id" jdbcType="INTEGER" property="themeId"/>
+    <result column="course_order_number" jdbcType="INTEGER" property="orderNumber"/>
+    <collection property="chapterList" ofType="com.adweb.adweb.entity.Chapter">
+      <id column="chapter_id" jdbcType="INTEGER" property="id"/>
+      <result column="chapter_name" jdbcType="VARCHAR" property="name"/>
+      <result column="chapter_summary" jdbcType="VARCHAR" property="summary"/>
+      <result column="chapter_order_number" jdbcType="INTEGER" property="orderNumber"/>
+      <result column="chapter_course_id" jdbcType="INTEGER" property="courseId"/>
+      <collection property="sectionList" ofType="com.adweb.adweb.entity.Section">
+        <id column="section_id" jdbcType="INTEGER" property="id"/>
+        <result column="section_name" jdbcType="VARCHAR" property="name"/>
+        <result column="section_summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="section_order_number" jdbcType="INTEGER" property="orderNumber"/>
+        <result column="section_chapter_id" jdbcType="INTEGER" property="chapterId"/>
+        <result column="studentId" jdbcType="VARCHAR" property="studentId"/>
+      </collection>
+    </collection>
+  </resultMap>
+  <select id="getCourseDetailById" resultMap="DetailMap" parameterType="map">
+        select
+        course.id as course_id,
+        course.name as course_name,
+        course.summary as course_summary,
+        course.teacher_id as course_teacher_id,
+        course.start_time as course_start_time,
+        course.end_time as course_end_time,
+        course.image_src as course_image_src,
+        course.credit as course_credit,
+        course.type as course_type,
+        course.theme_id as course_theme_id,
+        course.order_number as course_order_number,
+        chapter.id as chapter_id,
+        chapter.name as chapter_name,
+        chapter.summary as chapter_summary,
+        chapter.order_number as chapter_order_number,
+        chapter.course_id as chapter_course_id,
+        `section`.id as section_id,
+        `section`.name as section_name,
+        `section`.summary as section_summary,
+        `section`.order_number as section_order_number,
+        `section`.chapter_id as section_chapter_id,
+        `question_answer`.student_id as studentId
+        from course left join chapter on course.id=chapter.course_id
+        left join `section` on chapter.id=`section`.chapter_id
+        left join choice_question on choice_question.section_id=`section`.id
+        left join question_answer on question_answer.question_id=choice_question.id
+        where course.id=#{courseId,jdbcType=INTEGER} and question_answer.student_id=#{studentId,jdbcType=VARCHAR}
+        order by chapter.order_number,`section`.order_number
+    </select>
   <select id="getCourseByChapter" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

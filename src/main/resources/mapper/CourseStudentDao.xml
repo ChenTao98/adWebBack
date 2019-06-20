@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adweb.adweb.dao.CourseStudentDao">
+    <select id="getCourseSelectByCourseId" parameterType="java.lang.Integer" resultMap="courseStudentSelect">
+        select student.open_id as studentId,
+        student.name as studentName,
+        chapter.name as chapterName,
+        `section`.name as sectionName,
+        course_selection.status as status
+        from
+        course_selection left join student on student.open_id=course_selection.student_id
+        left join `section` on `section`.id=course_selection.section_id
+        left join chapter on chapter.id=`section`.chapter_id
+        where course_selection.course_id=#{courseId,jdbcType=INTEGER}
+    </select>
+    <resultMap id="courseStudentSelect" type="com.adweb.adweb.entity.courseStudent.CourseStudentSelect">
+        <id column="studentId" jdbcType="VARCHAR" property="studentId"/>
+        <result column="studentName" jdbcType="VARCHAR" property="studentName"/>
+        <result column="chapterName" jdbcType="VARCHAR" property="chapterName"/>
+        <result column="sectionName" jdbcType="VARCHAR" property="sectionName"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <select id="studentChoice" parameterType="map" resultMap="studentChoice">
+    select
+    student.name as studentName,
+    student.open_id as studentId,
+    `section`.name as sectionName,
+    question_answer.option_id as answerId,
+    choice_question.id as question_id,
+    choice_question.section_id,
+    choice_question.content as question_content,
+    choice_question.answer_key as question_answer_key,
+    `option`.id as option_id,
+    `option`.question_id as option_question_id,
+    `option`.content as option_content,
+    `option`.is_correct as option_is_correct
+    from
+    question_answer left join student on question_answer.student_id=student.open_id
+    left join choice_question on choice_question.id=question_answer.question_id
+    left join `option` on `option`.question_id=choice_question.id
+    left join `section` on `section`.id=choice_question.section_id
+    where  `section`.id=#{sectionId,jdbcType=INTEGER} and student.open_id=#{studentId,jdbcType=VARCHAR}
+  </select>
+    <resultMap id="studentChoice" type="com.adweb.adweb.entity.courseStudent.StudentChoice">
+        <id column="studentId" jdbcType="VARCHAR" property="studentId"/>
+        <result column="studentName" jdbcType="VARCHAR" property="studentName"/>
+        <result column="sectionName" jdbcType="VARCHAR" property="sectionName"/>
+        <collection property="choiceQuestionList" ofType="com.adweb.adweb.entity.ChoiceQuestion">
+            <id column="question_id" jdbcType="INTEGER" property="id"/>
+            <result column="section_id" jdbcType="INTEGER" property="sectionId"/>
+            <result column="question_content" jdbcType="VARCHAR" property="content"/>
+            <result column="question_answer_key" jdbcType="VARCHAR" property="answerKey"/>
+            <result column="answerId" jdbcType="INTEGER" property="answerId"/>
+            <collection property="optionList" ofType="com.adweb.adweb.entity.Option">
+                <id column="option_id" jdbcType="INTEGER" property="id"/>
+                <result column="option_question_id" jdbcType="INTEGER" property="questionId"/>
+                <result column="option_content" jdbcType="VARCHAR" property="content"/>
+                <result column="option_is_correct" jdbcType="INTEGER" property="isCorrect"/>
+            </collection>
+        </collection>
+    </resultMap>
+</mapper>

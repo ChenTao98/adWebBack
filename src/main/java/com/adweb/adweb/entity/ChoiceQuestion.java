@@ -124,4 +124,13 @@ public class ChoiceQuestion implements Serializable {
     public void setOptionList(List<Option> optionList) {
         this.optionList = optionList;
     }
+    private Integer answerId;
+
+    public Integer getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(Integer answerId) {
+        this.answerId = answerId;
+    }
 }

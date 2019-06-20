@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>学生信息</title>
+    <title>学生选课信息</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
@@ -43,35 +43,22 @@
     <div th:replace="~{header/header :: head-student}"></div>
 </div>
 <div id="main">
-    <h1>查看学生</h1>
+    <h1>学生课程作业信息</h1>
+    <hr/>
+    <h3 th:text="${'课程：'+ courseName}"></h3>
+    <h4 th:text="${'学生：'+ studentName}"></h4>
+    <br/>
+    <br/>
     <table class="table table-bordered table-striped">
-        <caption th:text="'课程数: ' + ${list.size()} + ''"></caption>
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col" th:text="'#'+${list.size()}"></th>
-            <th scope="col">课程名称</th>
-            <th scope="col">课程开始时间</th>
-            <th scope="col">课程结束时间</th>
-            <th scope="col">学分数</th>
-            <th scope="col">分类</th>
-            <th scope="col">主题</th>
-            <th scope="col">查看</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="course,status: ${list}">
-            <td class="wrapTd" th:text="|${status.count}|"></td>
-            <td class="wrapTd" th:text="${course.getName()}"></td>
-            <td class="wrapTd" th:text="${#dates.format(course.getStartTime(), 'yyyy-MM-dd')}"></td>
-            <td class="wrapTd" th:text="${#dates.format(course.getEndTime(), 'yyyy-MM-dd')}"></td>
-            <td class="wrapTd" th:text="${course.getCredit()}"></td>
-            <td class="wrapTd" th:text="${course.getType()}"></td>
-            <td class="wrapTd" th:text="${course.getThemeName()}"></td>
-            <td><a th:href="${'/student/'+course.getId()+''}">查看</a></td>
+        <tbody th:each="chapter,status : ${list} " th:with="sectionList = ${chapter.getSectionList()}">
+        <tr th:each="section,statusSection: ${sectionList}">
+            <td class="leftTd" th:if="${statusSection.count==1}" th:rowspan="${sectionList.size()}"
+                th:text="${chapter.getName()}"></td>
+            <td th:text="${section.getName()}"></td>
+            <td th:if="${section.getStudentId()!=null}"><a th:href="${'/student/choice/'+section.getId()+'/'+studentId}">查看作业</a></td>
         </tr>
         </tbody>
     </table>
-    <br/>
 </div>
 
 <div id="footer">

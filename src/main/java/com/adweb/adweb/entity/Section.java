@@ -130,4 +130,13 @@ public class Section implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+    private String studentId;
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 }

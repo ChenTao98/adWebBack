@@ -10,4 +10,5 @@ public interface CourseService {
     Course getCourseById(Integer integer,String teacherId);
     Course getCourseByChapter(Integer chapter);
     Course getCourseBySection(Integer section);
+    Course getCourseByStudent(Integer id,String studentID);
 }

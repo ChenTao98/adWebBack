@@ -265,7 +265,7 @@ public class CourseController {
     @PostMapping("add/{sectionId}/choice")
     public String addChoice(@PathVariable() Integer sectionId, @RequestParam() String question,
                             @RequestParam() Integer isCorrect, @RequestParam() String[] option,
-                            @RequestParam()String answerKey, Model model, HttpServletRequest httpServletRequest) {
+                            @RequestParam() String answerKey, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
         Section section = sectionService.isSectionBelongToTeacher(sectionId, teacherId);
         if (section == null) {
@@ -279,22 +279,22 @@ public class CourseController {
             setChoiceQuestionDetail(model, section);
             return "course/choiceQuestionDetail";
         }
-        List<Option> list=new ArrayList<>();
+        List<Option> list = new ArrayList<>();
         for (int i = 0; i < option.length; i++) {
-            if(StringUtil.isEmpty(option[i])){
+            if (StringUtil.isEmpty(option[i])) {
                 Message.writeMessage(model, Message.DATA_ERROR);
                 setChoiceQuestionDetail(model, section);
                 return "course/choiceQuestionDetail";
             }
-            if(isCorrect==i){
-                list.add(new Option(option[i],1));
-            }else {
-                list.add(new Option(option[i],0));
+            if (isCorrect == i) {
+                list.add(new Option(option[i], 1));
+            } else {
+                list.add(new Option(option[i], 0));
             }
 
         }
-        ChoiceQuestion choiceQuestion = new ChoiceQuestion(sectionId,question,answerKey,list);
-        if(choiceQuestionService.insertQuestion(choiceQuestion)!=1){
+        ChoiceQuestion choiceQuestion = new ChoiceQuestion(sectionId, question, answerKey, list);
+        if (choiceQuestionService.insertQuestion(choiceQuestion) != 1) {
             Message.writeMessage(model, Message.DATABASE_ERROR);
             setChoiceQuestionDetail(model, section);
             return "course/choiceQuestionDetail";

@@ -30,4 +30,5 @@ public interface CourseDao {
     int updateByPrimaryKey(Course record);
     Course getCourseByChapter(Integer chapterId);
     Course getCourseBySection(Integer sectionId);
+    Course getCourseDetailById(@Param("courseId") Integer courseId,@Param("studentId")String studentId);
 }
