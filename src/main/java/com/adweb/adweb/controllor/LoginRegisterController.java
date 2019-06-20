@@ -4,6 +4,7 @@ import com.adweb.adweb.entity.Teacher;
 import com.adweb.adweb.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,19 @@ import java.util.UUID;
 @Controller
 public class LoginRegisterController {
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    @Autowired
     private TeacherService teacherService;
 
     @RequestMapping(value = {"", "/", "/index", "/index.html", "/index.php", "/login", "/login.html"})
-    public String index(Model model) {
+    public String index(Model model, @RequestParam(value = "error", required = false) String error) {
         model.addAttribute("login_hint", "");
         model.addAttribute("register_hint", "");
+        if (error != null) {
+            model.addAttribute("login_hint", "用户名或者密码错误！");
+        }
 
         return "login/index";
     }
@@ -30,8 +38,7 @@ public class LoginRegisterController {
                           @RequestParam(name="password", required = true)String password, Model model) {
         Teacher teacher = new Teacher();
         teacher.setEmail(username);
-        // TODO: 2019/6/20 BcriptPasswordEncorder 
-        teacher.setPassword(password);
+        teacher.setPassword(passwordEncoder.encode(password));
         teacher.setName("");
         teacher.setOpenId(UUID.randomUUID().toString());
         model.addAttribute("login_hint", "");
