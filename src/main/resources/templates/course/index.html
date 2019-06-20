@@ -9,6 +9,27 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    <style type="text/css">
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        div > img {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .wrapTd {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .leftTd {
+            font-weight: bold;
+            width: 20%;
+        }
+    </style>
 </head>
 <body>
 <div th:if="${message!=null}">
@@ -39,13 +60,13 @@
         </thead>
         <tbody>
         <tr th:each="course,status: ${list}">
-            <td th:text="|${status.count}|"></td>
-            <td th:text="${course.getName()}"></td>
-            <td th:text="${#dates.format(course.getStartTime(), 'yyyy-MM-dd')}"></td>
-            <td th:text="${#dates.format(course.getEndTime(), 'yyyy-MM-dd')}"></td>
-            <td th:text="${course.getCredit()}"></td>
-            <td th:text="${course.getType()}"></td>
-            <td th:text="${course.getThemeName()}"></td>
+            <td class="wrapTd" th:text="|${status.count}|"></td>
+            <td class="wrapTd" th:text="${course.getName()}"></td>
+            <td class="wrapTd" th:text="${#dates.format(course.getStartTime(), 'yyyy-MM-dd')}"></td>
+            <td class="wrapTd" th:text="${#dates.format(course.getEndTime(), 'yyyy-MM-dd')}"></td>
+            <td class="wrapTd" th:text="${course.getCredit()}"></td>
+            <td class="wrapTd" th:text="${course.getType()}"></td>
+            <td class="wrapTd" th:text="${course.getThemeName()}"></td>
             <td><a th:href="${'/course/'+course.getId()+''}">查看</a></td>
         </tr>
         </tbody>

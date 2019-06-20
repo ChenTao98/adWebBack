@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SessionUtil {
     public static String getTeacherId(HttpServletRequest httpServletRequest){
-//        return (String) httpServletRequest.getSession().getAttribute("openId");
-        return "1";
+        return (String) httpServletRequest.getSession().getAttribute("openId");
+//        return "1";
     }
 }

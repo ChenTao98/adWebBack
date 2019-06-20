@@ -8,4 +8,5 @@ public interface KnowledgeService {
     List<Knowledge> getKnowledgeBySection(Integer sectionId);
     int insertKnowledge(Knowledge knowledge);
     int insertKnowledge(List<Knowledge> knowledgeList);
+    int getLargestKnowledgeOrderNumber(Integer section);
 }

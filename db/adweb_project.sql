@@ -103,7 +103,7 @@ CREATE TABLE `course_selection` (
 CREATE TABLE `knowledge` (
   `id` int(11) NOT NULL COMMENT '知识点id',
   `type` int(11) NOT NULL COMMENT '知识点种类 0代表图片 1代表文本',
-  `content` varchar(100) NOT NULL COMMENT '图片的话是url 文本的话就是对应内容',
+  `content` varchar(255) NOT NULL COMMENT '图片的话是url 文本的话就是对应内容',
   `order_number` int(11) NOT NULL COMMENT '知识点的顺序号',
   `section_id` int(11) NOT NULL COMMENT '知识点对应的小节id',
   `importance_degree` int(11) NOT NULL COMMENT '表示知识点重要程度 0 1 2 3 0最重要',

@@ -17,6 +17,7 @@ public class SectionServiceImpl implements SectionService {
     public List<Section> getSectionByChapter(Integer chapterId) {
         SectionExample sectionExample=new SectionExample();
         sectionExample.createCriteria().andChapterIdEqualTo(chapterId);
+        sectionExample.setOrderByClause("order_number");
         return sectionDao.selectByExample(sectionExample);
     }
 

@@ -95,10 +95,10 @@
         </thead>
         <tbody>
         <tr th:each="chapter,status: ${list}">
-            <td th:text="|${status.count}|"></td>
-            <td th:text="${chapter.getName()}"></td>
-            <td th:text="${chapter.getSummary()}"></td>
-            <td th:text="${chapter.getOrderNumber()}"></td>
+            <td class="wrapTd" th:text="|${status.count}|"></td>
+            <td class="wrapTd" th:text="${chapter.getName()}"></td>
+            <td class="wrapTd" th:text="${chapter.getSummary()}"></td>
+            <td class="wrapTd" th:text="${chapter.getOrderNumber()}"></td>
             <td><a th:href="${'/course/chapter/'+chapter.getId()}">查看</a></td>
         </tr>
         </tbody>
@@ -114,16 +114,17 @@
                             aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">添加章节</h4>
                 </div>
-                <form method="post" th:action="${'/course/add/'+course.getId()+'/chapter'}" enctype="multipart/form-data">
+                <form method="post" th:action="${'/course/add/'+course.getId()+'/chapter'}"
+                      enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group input-group">
                             <span class="input-group-addon">章节名称</span>
-                            <input type="text" class="form-control" name="name" placeholder="课程名称"
+                            <input type="text" class="form-control" name="name" placeholder="章节名称"
                                    aria-describedby="basic-addon1" required>
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon">章节简介</span>
-                            <input type="text" class="form-control" name="summary" placeholder="课程简介"
+                            <input type="text" class="form-control" name="summary" placeholder="章节简介"
                                    aria-describedby="basic-addon1" required>
                         </div>
                     </div>

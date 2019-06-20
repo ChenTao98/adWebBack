@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>课程信息</title>
+    <title>选择题信息</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
@@ -37,7 +37,7 @@
         }
 
         .row-with-check input:nth-child(1) {
-            flex: 7;
+            flex: 6;
         }
 
         .row-with-check select {
@@ -91,37 +91,37 @@
     <br/>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
-        添加知识点
+        添加选择题
     </button>
-    <a th:href="${'/course/choice/'+section.getId()}">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal">
-            查看选择题
-        </button>
-    </a>
     <br/>
     <table class="table table-bordered table-striped">
         <caption th:text="'小节数: ' + ${list.size()} + ''"></caption>
         <thead class="thead-dark">
         <tr>
             <th scope="col" th:text="'#'+${list.size()}"></th>
-            <th scope="col">对话内容</th>
-            <th scope="col">对话顺序号</th>
-            <th scope="col">重要程度</th>
-            <th scope="col">谁说的</th>
-            <th scope="col">修改</th>
+            <th scope="col">题目</th>
+            <th scope="col">选项A</th>
+            <th scope="col">选项B</th>
+            <th scope="col">选择C</th>
+            <th scope="col">正确答案</th>
+            <th scope="col">答案解析</th>
             <th scope="col">删除</th>
+            <th scope="col">修改</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="knowledge,status: ${list}">
+        <tr th:each="question,status: ${list}" th:with="optionList=${question.getOptionList()}">
             <td class="wrapTd" th:text="|${status.count}|"></td>
-            <td class="wrapTd" th:text="${knowledge.getContent()}"></td>
-            <td class="wrapTd" th:text="${knowledge.getOrderNumber()}"></td>
-            <td class="wrapTd" th:text="${knowledge.getImportanceDegree()}"></td>
-            <td>
-                <span th:if="${knowledge.getWhoSay()==0}">老师</span>
-                <span th:if="${knowledge.getWhoSay()==1}">学生</span>
+            <td class="wrapTd" th:text="${question.getContent()}"></td>
+            <td class="wrapTd" th:text="${optionList.get(0).getContent()}"></td>
+            <td class="wrapTd" th:text="${optionList.get(1).getContent()}"></td>
+            <td class="wrapTd" th:text="${optionList.get(2).getContent()}"></td>
+            <td class="wrapTd">
+                <span th:if="${optionList.get(0).getIsCorrect()==1}">A</span>
+                <span th:if="${optionList.get(1).getIsCorrect()==1}">B</span>
+                <span th:if="${optionList.get(2).getIsCorrect()==1}">C</span>
             </td>
+            <td class="wrapTd" th:text="${question.getAnswerKey()}"></td>
             <td><a>修改</a></td>
             <td><a>删除</a></td>
         </tr>
@@ -138,25 +138,42 @@
                             aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">添加对话</h4>
                 </div>
-                <form method="post" th:action="${'/course/add/'+section.getId()+'/knowledge'}"
+                <form method="post" th:action="${'/course/add/'+section.getId()+'/choice'}"
                       enctype="multipart/form-data">
                     <div class="modal-body">
-                        <div class="form-group input-group row-with-check" th:each="item,status: ${arrayInt}">
-                            <input type="text" class="form-control" name="content" placeholder="对话内容" maxlength=255>
-                            <select name="important" class="form-control">
-                                <option value="0">最重要</option>
-                                <option value="1">很重要</option>
-                                <option value="2" selected>一般</option>
-                                <option value="3">不重要</option>
-                            </select>
+                        <div class="form-group input-group row-with-check">
+                            <input type="text" class="form-control" name="question" placeholder="题目内容"
+                                   maxlength=255 required>
+                        </div>
+                        <div class="form-group input-group row-with-check">
+                            <input type="text" class="form-control" name="option" placeholder="选项A" maxlength=255
+                                   required>
                             <div>
-                                <input name="teacher" type="checkbox" th:value="${item}"><span>老师</span>
+                                <input type="radio" name="isCorrect" value="0" checked><span>正确答案</span>
                             </div>
+                        </div>
+                        <div class="form-group input-group row-with-check">
+                            <input type="text" class="form-control" name="option" placeholder="选项B" maxlength=255
+                                   required>
+                            <div>
+                                <input type="radio" name="isCorrect" value="1"><span>正确答案</span>
+                            </div>
+                        </div>
+                        <div class="form-group input-group row-with-check">
+                            <input type="text" class="form-control" name="option" placeholder="选项C" maxlength=255
+                                   required>
+                            <div>
+                                <input type="radio" name="isCorrect" value="2"><span>正确答案</span>
+                            </div>
+                        </div>
+                        <div class="form-group input-group row-with-check">
+                            <input type="text" class="form-control" name="answerKey" placeholder="题目解析"
+                                   maxlength=255 required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary">添加对话</button>
+                        <button type="submit" class="btn btn-primary">添加选择题</button>
                     </div>
                 </form>
             </div>

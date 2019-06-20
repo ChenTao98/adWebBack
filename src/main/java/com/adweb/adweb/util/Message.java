@@ -11,6 +11,7 @@ public enum Message {
     COURSE_GET_ERROR("课程获取失败"),
     CHAPTER_NOT_YOURS_ERROR("该章节不是你所有"),
     COURSE_HAVE_START_ERROR("该课程已经开课，不允许修改"),
+    PLEASE_INPUT_ERROR("请输入数据"),
     SECTION_NOT_YOURS_ERROR("该小节不是你所有"),
     SYSTEM_ERROR("系统内部错误");
     private String message;
