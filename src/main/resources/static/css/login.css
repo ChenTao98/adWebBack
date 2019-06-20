@@ -1,9 +1,161 @@
-#login {
-    width: 40%;
-    margin: auto;
-    margin-top: 50px;
+body {
+    margin: 0 0;
 }
 
-#submit {
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    padding: 0;
+}
+
+.bg-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+
+    /* 设置模糊 */
+    filter: blur(6px);
+    -webkit-filter: blur(6px); /* chrome, opera */
+    -ms-filter: blur(6px);
+    -moz-filter: blur(6px);
+}
+
+.dark-layer {
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    margin: 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 25%;
+    height: 60%;
+    box-sizing: content-box !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-header {
+    width: 70%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.my-header span {
+    display: inline-block;
+    border: 0;
+    flex: 1;
+    padding: 10px 0;
+    font-size: 1.2em;
+    font-family: STSong;
+    font-weight: bolder;
+}
+
+.my-header div:nth-child(1) {
+    margin-right: 0 !important;
+}
+
+.my-header div:nth-child(2) {
+    margin-left: 0 !important;
+}
+
+.my-selected {
+    background-color: rgb(39, 44, 50);
+    color: rgb(226, 231, 237);
+
+}
+
+.my-unselected {
+    background-color: rgb(62, 66, 75);
+    color: rgb(111, 116, 122);
+}
+
+.form-group {
+    display: flex;
     margin-top: 30px;
+    width: 100%;
+}
+
+#login_body {
+    width: 70%;
+}
+
+#register_body {
+    width: 70%;
+}
+
+form {
+    width: 100%;
+}
+
+.form-group input {
+    height: 36px;
+    margin-left: 0;
+    line-height: 36px;
+    padding: 0;
+    flex: 1;
+}
+
+.image_label {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(54, 54, 54);
+    vertical-align: text-bottom;
+    margin: auto;
+}
+
+.checkbox {
+    margin-top: 20px;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    font-size: 1.0em;
+    margin: 20px auto;
+    background-color:rgba(92, 184, 92, 0.9);
+    border: 1px solid rgb(43, 89, 43);
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.warning {
+    color: #a94442;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.success {
+    color: #3c763d;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.headline {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.headline span:nth-child(1) {
+    font-family: "Times New Roman";
+}
+
+
+.headline span:nth-child(2) {
+    font-family: STSong;
 }
