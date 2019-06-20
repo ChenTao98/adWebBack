@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2019-06-19 15:59:32
+-- 生成日期： 2019-06-20 11:35:39
 -- 服务器版本： 10.1.40-MariaDB
 -- PHP 版本： 7.3.5
 
@@ -106,7 +106,8 @@ CREATE TABLE `knowledge` (
   `content` varchar(100) NOT NULL COMMENT '图片的话是url 文本的话就是对应内容',
   `order_number` int(11) NOT NULL COMMENT '知识点的顺序号',
   `section_id` int(11) NOT NULL COMMENT '知识点对应的小节id',
-  `importance_degree` int(11) NOT NULL COMMENT '表示知识点重要程度 0 1 2 3 0最重要'
+  `importance_degree` int(11) NOT NULL COMMENT '表示知识点重要程度 0 1 2 3 0最重要',
+  `who_say` int(11) NOT NULL COMMENT '谁说的，0为老师，1为学生'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='知识点表';
 
 -- --------------------------------------------------------

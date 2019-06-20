@@ -36,4 +36,9 @@ public class SectionServiceImpl implements SectionService {
         }
         return 0;
     }
+
+    @Override
+    public Section isSectionBelongToTeacher(Integer sectionId, String teacherId) {
+        return sectionDao.isSectionBelongToTeacher(sectionId, teacherId);
+    }
 }

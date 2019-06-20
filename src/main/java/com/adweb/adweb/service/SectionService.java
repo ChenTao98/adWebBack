@@ -8,4 +8,5 @@ public interface SectionService {
     List<Section> getSectionByChapter(Integer chapterId);
     int insertSection(Section section);
     int getLargestSectionOrderNumber(Integer chapter);
+    Section isSectionBelongToTeacher(Integer sectionId,String teacherId);
 }

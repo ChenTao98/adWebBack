@@ -8,6 +8,7 @@
     <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
     <result column="section_id" jdbcType="INTEGER" property="sectionId" />
     <result column="importance_degree" jdbcType="INTEGER" property="importanceDegree" />
+    <result column="who_say" jdbcType="INTEGER" property="whoSay" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `type`, content, order_number, section_id, importance_degree
+    id, `type`, content, order_number, section_id, importance_degree, who_say
   </sql>
   <select id="selectByExample" parameterType="com.adweb.adweb.entity.KnowledgeExample" resultMap="BaseResultMap">
     select
@@ -110,9 +111,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Knowledge" useGeneratedKeys="true">
     insert into knowledge (`type`, content, order_number, 
-      section_id, importance_degree)
+      section_id, importance_degree, who_say
+      )
     values (#{type,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER}, 
-      #{sectionId,jdbcType=INTEGER}, #{importanceDegree,jdbcType=INTEGER})
+      #{sectionId,jdbcType=INTEGER}, #{importanceDegree,jdbcType=INTEGER}, #{whoSay,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Knowledge" useGeneratedKeys="true">
     insert into knowledge
@@ -132,6 +135,9 @@
       <if test="importanceDegree != null">
         importance_degree,
       </if>
+      <if test="whoSay != null">
+        who_say,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="type != null">
@@ -148,6 +154,9 @@
       </if>
       <if test="importanceDegree != null">
         #{importanceDegree,jdbcType=INTEGER},
+      </if>
+      <if test="whoSay != null">
+        #{whoSay,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +187,9 @@
       <if test="record.importanceDegree != null">
         importance_degree = #{record.importanceDegree,jdbcType=INTEGER},
       </if>
+      <if test="record.whoSay != null">
+        who_say = #{record.whoSay,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +202,8 @@
       content = #{record.content,jdbcType=VARCHAR},
       order_number = #{record.orderNumber,jdbcType=INTEGER},
       section_id = #{record.sectionId,jdbcType=INTEGER},
-      importance_degree = #{record.importanceDegree,jdbcType=INTEGER}
+      importance_degree = #{record.importanceDegree,jdbcType=INTEGER},
+      who_say = #{record.whoSay,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +226,9 @@
       <if test="importanceDegree != null">
         importance_degree = #{importanceDegree,jdbcType=INTEGER},
       </if>
+      <if test="whoSay != null">
+        who_say = #{whoSay,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +238,8 @@
       content = #{content,jdbcType=VARCHAR},
       order_number = #{orderNumber,jdbcType=INTEGER},
       section_id = #{sectionId,jdbcType=INTEGER},
-      importance_degree = #{importanceDegree,jdbcType=INTEGER}
+      importance_degree = #{importanceDegree,jdbcType=INTEGER},
+      who_say = #{whoSay,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

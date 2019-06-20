@@ -37,6 +37,11 @@ public class Knowledge implements Serializable {
      */
     private Integer importanceDegree;
 
+    /**
+     * 谁说的，0为老师，1为学生
+     */
+    private Integer whoSay;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -87,6 +92,14 @@ public class Knowledge implements Serializable {
         this.importanceDegree = importanceDegree;
     }
 
+    public Integer getWhoSay() {
+        return whoSay;
+    }
+
+    public void setWhoSay(Integer whoSay) {
+        this.whoSay = whoSay;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -104,7 +117,8 @@ public class Knowledge implements Serializable {
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
             && (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
             && (this.getSectionId() == null ? other.getSectionId() == null : this.getSectionId().equals(other.getSectionId()))
-            && (this.getImportanceDegree() == null ? other.getImportanceDegree() == null : this.getImportanceDegree().equals(other.getImportanceDegree()));
+            && (this.getImportanceDegree() == null ? other.getImportanceDegree() == null : this.getImportanceDegree().equals(other.getImportanceDegree()))
+            && (this.getWhoSay() == null ? other.getWhoSay() == null : this.getWhoSay().equals(other.getWhoSay()));
     }
 
     @Override
@@ -117,6 +131,7 @@ public class Knowledge implements Serializable {
         result = prime * result + ((getOrderNumber() == null) ? 0 : getOrderNumber().hashCode());
         result = prime * result + ((getSectionId() == null) ? 0 : getSectionId().hashCode());
         result = prime * result + ((getImportanceDegree() == null) ? 0 : getImportanceDegree().hashCode());
+        result = prime * result + ((getWhoSay() == null) ? 0 : getWhoSay().hashCode());
         return result;
     }
 
@@ -132,6 +147,7 @@ public class Knowledge implements Serializable {
         sb.append(", orderNumber=").append(orderNumber);
         sb.append(", sectionId=").append(sectionId);
         sb.append(", importanceDegree=").append(importanceDegree);
+        sb.append(", whoSay=").append(whoSay);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

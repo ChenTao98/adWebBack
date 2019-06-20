@@ -493,6 +493,66 @@ public class KnowledgeExample {
             addCriterion("importance_degree not between", value1, value2, "importanceDegree");
             return (Criteria) this;
         }
+
+        public Criteria andWhoSayIsNull() {
+            addCriterion("who_say is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayIsNotNull() {
+            addCriterion("who_say is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayEqualTo(Integer value) {
+            addCriterion("who_say =", value, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayNotEqualTo(Integer value) {
+            addCriterion("who_say <>", value, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayGreaterThan(Integer value) {
+            addCriterion("who_say >", value, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("who_say >=", value, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayLessThan(Integer value) {
+            addCriterion("who_say <", value, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayLessThanOrEqualTo(Integer value) {
+            addCriterion("who_say <=", value, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayIn(List<Integer> values) {
+            addCriterion("who_say in", values, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayNotIn(List<Integer> values) {
+            addCriterion("who_say not in", values, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayBetween(Integer value1, Integer value2) {
+            addCriterion("who_say between", value1, value2, "whoSay");
+            return (Criteria) this;
+        }
+
+        public Criteria andWhoSayNotBetween(Integer value1, Integer value2) {
+            addCriterion("who_say not between", value1, value2, "whoSay");
+            return (Criteria) this;
+        }
     }
 
     /**

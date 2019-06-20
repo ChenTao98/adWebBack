@@ -61,6 +61,11 @@
         </tbody>
     </table>
     <br/>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
+        添加小节
+    </button>
+    <br/>
     <table class="table table-bordered table-striped">
         <caption th:text="'小节数: ' + ${list.size()} + ''"></caption>
         <thead class="thead-dark">
@@ -82,10 +87,7 @@
         </tr>
         </tbody>
     </table>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
-        添加小节
-    </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="addChapter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

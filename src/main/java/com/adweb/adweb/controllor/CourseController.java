@@ -2,11 +2,10 @@ package com.adweb.adweb.controllor;
 
 import com.adweb.adweb.entity.Chapter;
 import com.adweb.adweb.entity.Course;
+import com.adweb.adweb.entity.Knowledge;
 import com.adweb.adweb.entity.Section;
-import com.adweb.adweb.service.ChapterService;
-import com.adweb.adweb.service.CourseService;
-import com.adweb.adweb.service.SectionService;
-import com.adweb.adweb.service.ThemeService;
+import com.adweb.adweb.service.*;
+import com.adweb.adweb.service.Tl.TlRobotService;
 import com.adweb.adweb.util.Message;
 import com.adweb.adweb.util.PathUtil;
 import com.adweb.adweb.util.SessionUtil;
@@ -36,6 +35,10 @@ public class CourseController {
     private ChapterService chapterService;
     @Autowired
     private SectionService sectionService;
+    @Autowired
+    private KnowledgeService knowledgeService;
+    @Autowired
+    private TlRobotService tlRobotService;
     private static final String courseImageUp = PathUtil.COURSE_IMAGE_UP;
 
     @RequestMapping({"", "index", "/"})
@@ -52,8 +55,8 @@ public class CourseController {
                             @RequestParam() String type, @RequestParam() Integer theme,
                             Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        if(image.isEmpty()||StringUtil.isEmpty(name)||StringUtil.isEmpty(summary)||StringUtil.isEmpty(startTime)||StringUtil.isEmpty(endTime)
-                ||credit==null||StringUtil.isEmpty(type)||theme==null){
+        if (image.isEmpty() || StringUtil.isEmpty(name) || StringUtil.isEmpty(summary) || StringUtil.isEmpty(startTime) || StringUtil.isEmpty(endTime)
+                || credit == null || StringUtil.isEmpty(type) || theme == null) {
             Message.writeMessage(model, Message.DATE_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
@@ -98,108 +101,132 @@ public class CourseController {
         setTeacherCourseModel(model, teacherId);
         return "course/index";
     }
+
     @GetMapping("{courseId}")
-    public String viewCourse(@PathVariable()Integer courseId,Model model,HttpServletRequest httpServletRequest){
+    public String viewCourse(@PathVariable() Integer courseId, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        Course course=courseService.getCourseById(courseId,teacherId);
-        if(course==null){
-            Message.writeMessage(model,Message.COURSE_NOT_YOURS_ERROR);
+        Course course = courseService.getCourseById(courseId, teacherId);
+        if (course == null) {
+            Message.writeMessage(model, Message.COURSE_NOT_YOURS_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
-        setCourseDetailModel(model,course);
+        setCourseDetailModel(model, course);
         return "course/courseDetail";
     }
+
     @PostMapping("add/{courseId}/chapter")
-    public String addChapter(@PathVariable()Integer courseId,@RequestParam()String name,
-                             @RequestParam()String summary,Model model,HttpServletRequest httpServletRequest){
+    public String addChapter(@PathVariable() Integer courseId, @RequestParam() String name,
+                             @RequestParam() String summary, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        Course course=courseService.getCourseById(courseId,teacherId);
-        if(course==null){
-            Message.writeMessage(model,Message.COURSE_NOT_YOURS_ERROR);
+        Course course = courseService.getCourseById(courseId, teacherId);
+        if (course == null) {
+            Message.writeMessage(model, Message.COURSE_NOT_YOURS_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
-        if(course.getStartTime().before(new Date())){
-            Message.writeMessage(model,Message.COURSE_HAVE_START_ERROR);
-            setCourseDetailModel(model,course);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setCourseDetailModel(model, course);
             return "course/courseDetail";
         }
-        if(StringUtil.isEmpty(name)||StringUtil.isEmpty(summary)){
-            Message.writeMessage(model,Message.DATA_ERROR);
-            setCourseDetailModel(model,course);
+        if (StringUtil.isEmpty(name) || StringUtil.isEmpty(summary)) {
+            Message.writeMessage(model, Message.DATA_ERROR);
+            setCourseDetailModel(model, course);
             return "course/courseDetail";
         }
-        Chapter chapter=new Chapter(name,summary,chapterService.getLargestChapterOrderName(courseId)+1,courseId);
-        if(chapterService.insertChapter(chapter)!=1){
-            Message.writeMessage(model,Message.DATABASE_ERROR);
-            setCourseDetailModel(model,course);
+        Chapter chapter = new Chapter(name, summary, chapterService.getLargestChapterOrderName(courseId) + 1, courseId);
+        if (chapterService.insertChapter(chapter) != 1) {
+            Message.writeMessage(model, Message.DATABASE_ERROR);
+            setCourseDetailModel(model, course);
             return "course/courseDetail";
         }
-        Message.writeMessage(model,Message.SUCCESS);
-        setCourseDetailModel(model,course);
+        Message.writeMessage(model, Message.SUCCESS);
+        setCourseDetailModel(model, course);
         return "course/courseDetail";
     }
+
     @GetMapping("chapter/{chapterId}")
-    public String viewChapter(@PathVariable()Integer chapterId,Model model,HttpServletRequest httpServletRequest){
+    public String viewChapter(@PathVariable() Integer chapterId, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        Chapter chapter=chapterService.isChapterBelongToTeacher(chapterId,teacherId);
-        if(chapter==null){
-            Message.writeMessage(model,Message.CHAPTER_NOT_YOURS_ERROR);
+        Chapter chapter = chapterService.isChapterBelongToTeacher(chapterId, teacherId);
+        if (chapter == null) {
+            Message.writeMessage(model, Message.CHAPTER_NOT_YOURS_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
-        setChapterDetail(model,chapter);
+        setChapterDetail(model, chapter);
         return "course/chapterDetail";
     }
+
     @PostMapping("add/{chapterId}/section")
-    public String addSection(@PathVariable()Integer chapterId,@RequestParam()String name,
-                             @RequestParam() String summary,Model model,HttpServletRequest httpServletRequest){
+    public String addSection(@PathVariable() Integer chapterId, @RequestParam() String name,
+                             @RequestParam() String summary, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        Chapter chapter=chapterService.isChapterBelongToTeacher(chapterId,teacherId);
-        if(chapter==null){
-            Message.writeMessage(model,Message.CHAPTER_NOT_YOURS_ERROR);
+        Chapter chapter = chapterService.isChapterBelongToTeacher(chapterId, teacherId);
+        if (chapter == null) {
+            Message.writeMessage(model, Message.CHAPTER_NOT_YOURS_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
-        Course course=courseService.getCourseByChapter(chapterId);
-        if(course==null){
-            Message.writeMessage(model,Message.COURSE_GET_ERROR);
+        Course course = courseService.getCourseByChapter(chapterId);
+        if (course == null) {
+            Message.writeMessage(model, Message.COURSE_GET_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
-        if(course.getStartTime().before(new Date())){
-            Message.writeMessage(model,Message.COURSE_HAVE_START_ERROR);
-            setChapterDetail(model,chapter);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
-        if(StringUtil.isEmpty(name)||StringUtil.isEmpty(summary)){
-            Message.writeMessage(model,Message.DATA_ERROR);
-            setChapterDetail(model,chapter);
+        if (StringUtil.isEmpty(name) || StringUtil.isEmpty(summary)) {
+            Message.writeMessage(model, Message.DATA_ERROR);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
-        Section section=new Section(name,summary,sectionService.getLargestSectionOrderNumber(chapterId)+1,chapterId);
-        if(sectionService.insertSection(section)!=1){
-            Message.writeMessage(model,Message.DATABASE_ERROR);
-            setChapterDetail(model,chapter);
+        Section section = new Section(name, summary, sectionService.getLargestSectionOrderNumber(chapterId) + 1, chapterId);
+        if (sectionService.insertSection(section) != 1) {
+            Message.writeMessage(model, Message.DATABASE_ERROR);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
-        Message.writeMessage(model,Message.SUCCESS);
-        setChapterDetail(model,chapter);
+        Message.writeMessage(model, Message.SUCCESS);
+        setChapterDetail(model, chapter);
         return "course/chapterDetail";
     }
+    @GetMapping("section/{sectionId}")
+    public String viewSection(@PathVariable()Integer sectionId,Model model,HttpServletRequest httpServletRequest){
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Section section=sectionService.isSectionBelongToTeacher(sectionId,teacherId);
+        if(section==null){
+            Message.writeMessage(model, Message.SECTION_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        setSectionDetail(model,section);
+        return "course/sectionDetail";
+    }
+
     private void setTeacherCourseModel(Model model, String teacherId) {
         model.addAttribute("list", courseService.getCourseByTeacher(teacherId));
         model.addAttribute("themeList", themeService.getAllTheme());
     }
-    private void setCourseDetailModel(Model model,Course course){
-        model.addAttribute("course",course);
-        List<Chapter> list=chapterService.getChapterByCourse(course.getId());
-        model.addAttribute("list",list);
+
+    private void setCourseDetailModel(Model model, Course course) {
+        model.addAttribute("course", course);
+        List<Chapter> list = chapterService.getChapterByCourse(course.getId());
+        model.addAttribute("list", list);
     }
-    private void setChapterDetail(Model model,Chapter chapter){
-        model.addAttribute("chapter",chapter);
-        List<Section> list=sectionService.getSectionByChapter(chapter.getId());
+
+    private void setChapterDetail(Model model, Chapter chapter) {
+        model.addAttribute("chapter", chapter);
+        List<Section> list = sectionService.getSectionByChapter(chapter.getId());
+        model.addAttribute("list", list);
+    }
+    private void setSectionDetail(Model model,Section section){
+        model.addAttribute("section",section);
+        List<Knowledge> list=knowledgeService.getKnowledgeBySection(section.getId());
         model.addAttribute("list",list);
     }
 }

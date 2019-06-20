@@ -47,63 +47,49 @@
     <table class="table table-bordered table-striped">
         <tbody>
         <tr>
-            <td class="leftTd">课程名称</td>
-            <td th:text="${course.getName()}" class="wrapTd"></td>
+            <td class="leftTd">小节名称</td>
+            <td th:text="${section.getName()}" class="wrapTd"></td>
         </tr>
         <tr>
-            <td class="leftTd">课程简介</td>
-            <td th:text="${course.getSummary()}" class="wrapTd"></td>
+            <td class="leftTd">小节简介</td>
+            <td th:text="${section.getSummary()}" class="wrapTd"></td>
         </tr>
         <tr>
-            <td class="leftTd">起始时间</td>
-            <td th:text="${#dates.format(course.getStartTime(), 'yyyy-MM-dd')}" class="wrapTd"></td>
-        </tr>
-        <tr>
-            <td class="leftTd">结束时间</td>
-            <td th:text="${#dates.format(course.getEndTime(), 'yyyy-MM-dd')}" class="wrapTd"></td>
-        </tr>
-        <tr>
-            <td class="leftTd">学分</td>
-            <td th:text="${course.getCredit()}" class="wrapTd"></td>
-        </tr>
-        <tr>
-            <td class="leftTd">分类</td>
-            <td th:text="${course.getType()}" class="wrapTd"></td>
-        </tr>
-        <tr>
-            <td class="leftTd">主题</td>
-            <td th:text="${course.getThemeName()}" class="wrapTd"></td>
+            <td class="leftTd">章节序号</td>
+            <td th:text="${section.getOrderNumber()}" class="wrapTd"></td>
         </tr>
         </tbody>
     </table>
     <br/>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
-        添加章节
-    </button>
-    <br/>
     <table class="table table-bordered table-striped">
-        <caption th:text="'章节数: ' + ${list.size()} + ''"></caption>
+        <caption th:text="'小节数: ' + ${list.size()} + ''"></caption>
         <thead class="thead-dark">
         <tr>
             <th scope="col" th:text="'#'+${list.size()}"></th>
-            <th scope="col">章节名称</th>
-            <th scope="col">章节简介</th>
-            <th scope="col">章节顺序号</th>
-            <th scope="col">查看</th>
+            <th scope="col">对话内容</th>
+            <th scope="col">对话顺序号</th>
+            <th scope="col">重要程度</th>
+            <th scope="col">谁说的</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="chapter,status: ${list}">
+        <tr th:each="knowledge,status: ${list}">
             <td th:text="|${status.count}|"></td>
-            <td th:text="${chapter.getName()}"></td>
-            <td th:text="${chapter.getSummary()}"></td>
-            <td th:text="${chapter.getOrderNumber()}"></td>
-            <td><a th:href="${'/course/chapter/'+chapter.getId()}">查看</a></td>
+            <td th:text="${knowledge.getContent()}"></td>
+            <td th:text="${knowledge.getOrderNumber()}"></td>
+            <td th:text="${knowledge.getImportanceDegree()}"></td>
+            <td>
+                <span th:if="${knowledge.getWhoSay()==0}">老师</span>
+                <span th:if="${knowledge.getWhoSay()==1}">学生</span>
+            </td>
+            <td><a >查看</a></td>
         </tr>
         </tbody>
     </table>
-
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
+        添加知识点
+    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="addChapter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -112,24 +98,25 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">添加章节</h4>
+                    <h4 class="modal-title" id="myModalLabel">添加小节</h4>
                 </div>
-                <form method="post" th:action="${'/course/add/'+course.getId()+'/chapter'}" enctype="multipart/form-data">
+                <form method="post" th:action="${'/course/add/'+section.getId()+'/knowledge'}"
+                      enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group input-group">
-                            <span class="input-group-addon">章节名称</span>
+                            <span class="input-group-addon">小节名称</span>
                             <input type="text" class="form-control" name="name" placeholder="课程名称"
                                    aria-describedby="basic-addon1" required>
                         </div>
                         <div class="form-group input-group">
-                            <span class="input-group-addon">章节简介</span>
+                            <span class="input-group-addon">小节摘要</span>
                             <input type="text" class="form-control" name="summary" placeholder="课程简介"
                                    aria-describedby="basic-addon1" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary">添加章节</button>
+                        <button type="submit" class="btn btn-primary">添加小节</button>
                     </div>
                 </form>
             </div>

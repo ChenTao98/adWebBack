@@ -27,4 +27,5 @@ public interface SectionDao {
     int updateByPrimaryKeySelective(Section record);
 
     int updateByPrimaryKey(Section record);
+    Section isSectionBelongToTeacher(@Param("sectionId") Integer sectionId,@Param("teacherId") String teacherId);
 }
