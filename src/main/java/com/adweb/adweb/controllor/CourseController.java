@@ -36,7 +36,7 @@ public class CourseController {
     private KnowledgeService knowledgeService;
     @Autowired
     private ChoiceQuestionService choiceQuestionService;
-    
+
     private static final String courseImageUp = PathUtil.COURSE_IMAGE_UP;
     private static final int[] arrayInt = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 

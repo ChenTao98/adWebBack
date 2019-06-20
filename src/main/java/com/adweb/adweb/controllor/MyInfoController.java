@@ -103,6 +103,7 @@ public class MyInfoController {
         // 上传新文件
         StringBuilder tmp = new StringBuilder();
         tmp.append(UUID.randomUUID().toString().replaceAll("-",""));
+        tmp.append(".");
         tmp.append(fileType);
         try {
             imageFile.transferTo(new File(PathUtil.TEACHER_IMAGE_UP + tmp));
