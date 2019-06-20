@@ -7,8 +7,17 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 </head>
 <body>
+<div th:if="${message!=null}">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        alert(/*[[${message}]]*/);
+        /*]]>*/
+    </script>
+</div>
 <div id="header">
     <div th:replace="~{header/header :: head-course}"></div>
 </div>
@@ -23,20 +32,98 @@
             <th scope="col">课程开始时间</th>
             <th scope="col">课程结束时间</th>
             <th scope="col">学分数</th>
-            <th scope="col">下载</th>
+            <th scope="col">分类</th>
+            <th scope="col">主题</th>
+            <th scope="col">查看</th>
         </tr>
         </thead>
         <tbody>
-<!--        <tr th:each="apk,status: ${list}">-->
-<!--            <td th:text="|${status.count}|"></td>-->
-<!--            <td th:text="${apk.getId()}"></td>-->
-<!--            <td th:text="${apk.getVersionName()}"></td>-->
-<!--            <td th:text="${#dates.format(apk.getIssueDate(), 'yyyy-MM-dd')}"></td>-->
-<!--            <td th:text="${apk.getIssueComment()}"></td>-->
-<!--            <td><a th:href="${'/installer/'+apk.getUrl()}">下载</a></td>-->
-<!--        </tr>-->
+        <tr th:each="course,status: ${list}">
+            <td th:text="|${status.count}|"></td>
+            <td th:text="${course.getName()}"></td>
+            <td th:text="${#dates.format(course.getStartTime(), 'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(course.getEndTime(), 'yyyy-MM-dd')}"></td>
+            <td th:text="${course.getCredit()}"></td>
+            <td th:text="${course.getType()}"></td>
+            <td th:text="${course.getThemeName()}"></td>
+            <td><a th:href="${'/course/'+course.getId()+''}">查看</a></td>
+        </tr>
         </tbody>
     </table>
+    <br/>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        添加课程
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加课程</h4>
+                </div>
+                <form method="post" action="/course/add" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">课程名称</span>
+                            <input type="text" class="form-control" name="name" placeholder="课程名称"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">课程简介</span>
+                            <input type="text" class="form-control" name="summary" placeholder="课程简介"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">起始时间</span>
+                            <input type="date" class="form-control" name="startTime" placeholder="起始时间"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">结束时间</span>
+                            <input type="date" class="form-control" name="endTime" placeholder="起始时间"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">学分数</span>
+                            <input type="number" class="form-control" name="credit" placeholder="学分数"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">课程分类</span>
+                            <select name="type" class="form-control">
+                                <option value="web开发" selected>web开发</option>
+                                <option value="人工智能">人工智能</option>
+                                <option value="移动开发">移动开发</option>
+                                <option value="游戏开发">游戏开发</option>
+                                <option value="运维测试">运维测试</option>
+                                <option value="互联网">互联网</option>
+                            </select>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">课程主题</span>
+                            <select name="theme" class="form-control">
+                                <option th:each="theme,status: ${themeList}" th:value="${theme.getId()}"
+                                        th:text="${theme.getName()}" th:title="${theme.getSummary()}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">课程图片</span>
+                            <input type="file" class="form-control" name="image" placeholder="学分数"
+                                   aria-describedby="basic-addon1" accept="image/*" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">添加课程</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="footer">

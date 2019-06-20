@@ -27,4 +27,5 @@ public interface ChapterDao {
     int updateByPrimaryKeySelective(Chapter record);
 
     int updateByPrimaryKey(Chapter record);
+    Chapter isChapterBelongToTeacher(@Param("chapterId") Integer chapterId,@Param("teacherId") String teacherId);
 }

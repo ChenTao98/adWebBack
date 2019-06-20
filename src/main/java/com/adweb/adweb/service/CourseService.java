@@ -5,5 +5,9 @@ import com.adweb.adweb.entity.Course;
 import java.util.List;
 
 public interface CourseService {
-    public List<Course> getCourseByTeacher(String teacherId);
+    List<Course> getCourseByTeacher(String teacherId);
+    int insertCourse(Course course);
+    Course getCourseById(Integer integer,String teacherId);
+    Course getCourseByChapter(Integer chapter);
+    Course getCourseBySection(Integer section);
 }

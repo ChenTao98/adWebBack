@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.adweb.adweb.dao.ChapterDao">
+
+  <select id="isChapterBelongToTeacher" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chapter left join course on chapter.course_id=course.id
+    where chapter.id = #{chapterId,jdbcType=INTEGER} and course.teacher_id=#{teacherId,jdbcType=VARCHAR}
+  </select>
   <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.Chapter">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -67,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, summary, order_number, course_id
+    chapter.id, chapter.`name`, chapter.summary, chapter.order_number, chapter.course_id
   </sql>
   <select id="selectByExample" parameterType="com.adweb.adweb.entity.ChapterExample" resultMap="BaseResultMap">
     select

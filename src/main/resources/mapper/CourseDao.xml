@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.adweb.adweb.dao.CourseDao">
+  <select id="getCourseByChapter" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chapter left join course on chapter.course_id=course.id left join theme on course.theme_id=theme.id
+    where chapter.id = #{chapterId,jdbcType=INTEGER}
+  </select>
+  <select id="getCourseBySection" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `section` left join chapter on `section`.chapter_id=chapter.id left join course on chapter.course_id=course.id left join theme on course.theme_id=theme.id
+    where `section`.id = #{sectionId,jdbcType=INTEGER}
+  </select>
   <resultMap id="BaseResultMap" type="com.adweb.adweb.entity.Course">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -13,6 +25,7 @@
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="theme_id" jdbcType="INTEGER" property="themeId" />
     <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
+    <result column="theme_name" jdbcType="INTEGER" property="themeName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,8 +86,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, summary, teacher_id, start_time, end_time, image_src, credit, `type`, 
-    theme_id, order_number
+    course.id as id, course.`name` as `name` , course.summary as summary, teacher_id, start_time, end_time, image_src, credit, `type`,
+    theme_id, course.order_number, theme.name as theme_name
   </sql>
   <select id="selectByExample" parameterType="com.adweb.adweb.entity.CourseExample" resultMap="BaseResultMap">
     select
@@ -82,7 +95,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from course
+    from course left join theme on course.theme_id=theme.id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,8 +114,8 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from course
-    where id = #{id,jdbcType=INTEGER}
+    from course left join theme on course.theme_id=theme.id
+    where course.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from course

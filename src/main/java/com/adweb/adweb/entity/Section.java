@@ -34,6 +34,16 @@ public class Section implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Section() {
+    }
+
+    public Section(String name, String summary, Integer orderNumber, Integer chapterId) {
+        this.name = name;
+        this.summary = summary;
+        this.orderNumber = orderNumber;
+        this.chapterId = chapterId;
+    }
+
     public Integer getId() {
         return id;
     }

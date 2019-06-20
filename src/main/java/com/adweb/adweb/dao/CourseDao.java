@@ -4,6 +4,7 @@ import com.adweb.adweb.entity.Course;
 import com.adweb.adweb.entity.CourseExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface CourseDao {
     long countByExample(CourseExample example);
@@ -27,4 +28,6 @@ public interface CourseDao {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+    Course getCourseByChapter(Integer chapterId);
+    Course getCourseBySection(Integer sectionId);
 }

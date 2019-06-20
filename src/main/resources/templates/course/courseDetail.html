@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程信息</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    <style type="text/css">
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        div > img {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .wrapTd {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .leftTd {
+            font-weight: bold;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${message!=null}">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        alert(/*[[${message}]]*/);
+        /*]]>*/
+    </script>
+</div>
+<div id="header">
+    <div th:replace="~{header/header :: head-course}"></div>
+</div>
+<div id="main">
+    <h1>我的课程</h1>
+    <table class="table table-bordered table-striped">
+        <tbody>
+        <tr>
+            <td class="leftTd">课程名称</td>
+            <td th:text="${course.getName()}" class="wrapTd"></td>
+        </tr>
+        <tr>
+            <td class="leftTd">课程简介</td>
+            <td th:text="${course.getSummary()}" class="wrapTd"></td>
+        </tr>
+        <tr>
+            <td class="leftTd">起始时间</td>
+            <td th:text="${#dates.format(course.getStartTime(), 'yyyy-MM-dd')}" class="wrapTd"></td>
+        </tr>
+        <tr>
+            <td class="leftTd">结束时间</td>
+            <td th:text="${#dates.format(course.getEndTime(), 'yyyy-MM-dd')}" class="wrapTd"></td>
+        </tr>
+        <tr>
+            <td class="leftTd">学分</td>
+            <td th:text="${course.getCredit()}" class="wrapTd"></td>
+        </tr>
+        <tr>
+            <td class="leftTd">分类</td>
+            <td th:text="${course.getType()}" class="wrapTd"></td>
+        </tr>
+        <tr>
+            <td class="leftTd">主题</td>
+            <td th:text="${course.getThemeName()}" class="wrapTd"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <table class="table table-bordered table-striped">
+        <caption th:text="'章节数: ' + ${list.size()} + ''"></caption>
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col" th:text="'#'+${list.size()}"></th>
+            <th scope="col">章节名称</th>
+            <th scope="col">章节简介</th>
+            <th scope="col">章节顺序号</th>
+            <th scope="col">查看</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chapter,status: ${list}">
+            <td th:text="|${status.count}|"></td>
+            <td th:text="${chapter.getName()}"></td>
+            <td th:text="${chapter.getSummary()}"></td>
+            <td th:text="${chapter.getOrderNumber()}"></td>
+            <td><a th:href="${'/course/chapter/'+chapter.getId()}">查看</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
+        添加章节
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addChapter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加章节</h4>
+                </div>
+                <form method="post" th:action="${'/course/add/'+course.getId()+'/chapter'}" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">章节名称</span>
+                            <input type="text" class="form-control" name="name" placeholder="课程名称"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">章节简介</span>
+                            <input type="text" class="form-control" name="summary" placeholder="课程简介"
+                                   aria-describedby="basic-addon1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">添加章节</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer">
+    <div th:replace="~{header/footer :: footer-fragment}"></div>
+</div>
+</body>
+</html>
