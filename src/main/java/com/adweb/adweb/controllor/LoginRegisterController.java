@@ -35,11 +35,12 @@ public class LoginRegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addUser(@RequestParam(name="username", required = true)String username,
+                          @RequestParam(name="email", required = true)String email,
                           @RequestParam(name="password", required = true)String password, Model model) {
         Teacher teacher = new Teacher();
-        teacher.setEmail(username);
+        teacher.setEmail(email);
         teacher.setPassword(passwordEncoder.encode(password));
-        teacher.setName("");
+        teacher.setName(username);
         teacher.setOpenId(UUID.randomUUID().toString());
         model.addAttribute("login_hint", "");
         model.addAttribute("register_hint", "");

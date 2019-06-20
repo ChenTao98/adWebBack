@@ -11,6 +11,7 @@
         <img class="bg-image" th:src="@{/image/bg.jpg}"/>
         <div class="dark-layer">
             <div class="content">
+                <div class="headline"><span>AD Course </span><span>教师端</span></div>
                 <div class="my-header">
                     <span class="my-selected" id="login_header">登陆</span>
                     <span class="my-unselected" id="register_header">注册</span>
@@ -18,7 +19,7 @@
                 <div id="login_body">
                     <form action="/login" method="post">
                         <div class="form-group">
-                            <img class="image_label" th:src="@{/image/user.png}"/>
+                            <img class="image_label" th:src="@{/image/email.png}"/>
                             <input type="email" class="form-control" name="username" placeholder="邮箱地址">
                         </div>
                         <div class="form-group">
@@ -38,8 +39,13 @@
                 <div id="register_body">
                     <form method="post" action="/register">
                         <div class="form-group">
+                            <img class="image_label" th:src="@{/image/email.png}"/>
+                            <input type="email" class="form-control" name="email" placeholder="邮箱地址">
+                        </div>
+
+                        <div class="form-group">
                             <img class="image_label" th:src="@{/image/user.png}"/>
-                            <input type="email" class="form-control" name="username" placeholder="邮箱地址">
+                            <input type="text" class="form-control" name="username" placeholder="用户名">
                         </div>
                         <div class="form-group">
                             <img class="image_label" th:src="@{/image/password.png}"/>
