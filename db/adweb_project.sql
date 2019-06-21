@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2019-06-20 12:08:35
+-- 生成日期： 2019-06-21 11:43:59
 -- 服务器版本： 10.1.40-MariaDB
 -- PHP 版本： 7.3.5
 
@@ -31,7 +31,7 @@ SET time_zone = "+08:00";
 CREATE TABLE `chapter` (
   `id` int(11) NOT NULL COMMENT '章的id',
   `name` varchar(11) NOT NULL COMMENT '章名',
-  `summary` varchar(100) NOT NULL COMMENT '章的简介',
+  `summary` varchar(255) NOT NULL COMMENT '章的简介',
   `order_number` int(11) NOT NULL COMMENT '章的顺序号',
   `course_id` int(11) NOT NULL COMMENT '章对应课程的id'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='表示课程的章';
@@ -45,8 +45,8 @@ CREATE TABLE `chapter` (
 CREATE TABLE `choice_question` (
   `id` int(11) NOT NULL COMMENT '选择题id',
   `section_id` int(11) NOT NULL COMMENT '选择题对应的小节id',
-  `content` varchar(100) NOT NULL COMMENT '选择题题目',
-  `answer_key` varchar(100) NOT NULL COMMENT '答案解析'
+  `content` varchar(255) NOT NULL COMMENT '选择题题目',
+  `answer_key` varchar(255) NOT NULL COMMENT '答案解析'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='选择题表';
 
 -- --------------------------------------------------------
@@ -69,7 +69,7 @@ CREATE TABLE `collection` (
 CREATE TABLE `course` (
   `id` int(11) NOT NULL COMMENT '课程的id',
   `name` varchar(31) NOT NULL COMMENT '课程名字',
-  `summary` varchar(100) NOT NULL COMMENT '课程简介',
+  `summary` varchar(255) NOT NULL COMMENT '课程简介',
   `teacher_id` varchar(255) NOT NULL COMMENT '老师的id',
   `start_time` datetime NOT NULL COMMENT '课程开始时间',
   `end_time` datetime NOT NULL COMMENT '课程结束时间',
@@ -131,7 +131,7 @@ CREATE TABLE `note` (
 CREATE TABLE `option` (
   `id` int(11) NOT NULL COMMENT '选项id',
   `question_id` int(11) NOT NULL COMMENT '选项对应问题的id',
-  `content` varchar(100) NOT NULL COMMENT '选项内容',
+  `content` varchar(255) NOT NULL COMMENT '选项内容',
   `is_correct` int(11) NOT NULL COMMENT '是否为正确选项 0表示不正确 1表示是正确选项'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='选择题题目选项的表';
 
@@ -156,7 +156,7 @@ CREATE TABLE `question_answer` (
 CREATE TABLE `section` (
   `id` int(11) NOT NULL COMMENT '小节的id',
   `name` varchar(31) NOT NULL COMMENT '小节的名字',
-  `summary` varchar(100) NOT NULL COMMENT '小节的摘要',
+  `summary` varchar(255) NOT NULL COMMENT '小节的摘要',
   `order_number` int(11) NOT NULL COMMENT '小节的顺序号',
   `chapter_id` int(11) NOT NULL COMMENT '小节对应的章节id'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='表示课程的小节';
@@ -188,13 +188,15 @@ CREATE TABLE `teacher` (
   `email` varchar(31) NOT NULL COMMENT '登录邮箱'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
 -- 表的结构 `teacher_avatar`
 --
 
 CREATE TABLE `teacher_avatar` (
   `teacher_id` varchar(255) NOT NULL,
-  `image_src` varchar(255) NOT NULL
+  `image_src` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -206,9 +208,18 @@ CREATE TABLE `teacher_avatar` (
 CREATE TABLE `theme` (
   `id` int(11) NOT NULL COMMENT '主题id',
   `name` varchar(11) NOT NULL COMMENT '主题名字',
-  `summary` varchar(100) NOT NULL COMMENT '主题简介',
+  `summary` varchar(255) NOT NULL COMMENT '主题简介',
   `image_url` varchar(100) NOT NULL COMMENT '主题的图片路径'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='主题表';
+
+--
+-- 转存表中的数据 `theme`
+--
+
+INSERT INTO `theme` (`id`, `name`, `summary`, `image_url`) VALUES
+(1, '码农生活好', '从各个方面讲解码农的日常生活以及注意事项', '1.jpg'),
+(2, '从入门到放弃', '包含各种编程语言从入门到放弃的详细教程', '2.jpg'),
+(3, '颈椎病康复指南', '教你如何在繁忙的生活中保护你的颈椎', '3.jpg');
 
 --
 -- 转储表的索引
@@ -337,7 +348,7 @@ ALTER TABLE `section`
 -- 使用表AUTO_INCREMENT `theme`
 --
 ALTER TABLE `theme`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主题id';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主题id', AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
