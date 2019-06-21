@@ -111,7 +111,6 @@
             <th scope="col">正确答案</th>
             <th scope="col">答案解析</th>
             <th scope="col">删除</th>
-            <th scope="col">修改</th>
         </tr>
         </thead>
         <tbody>
@@ -127,8 +126,9 @@
                 <span th:if="${optionList.get(2).getIsCorrect()==1}">C</span>
             </td>
             <td class="wrapTd" th:text="${question.getAnswerKey()}"></td>
-            <td><a>修改</a></td>
-            <td><a>删除</a></td>
+            <td><a th:href="${'/course/delete/'+section.getId()+'/'+question.getId()+'/choice'}">
+                <button class="btn btn-danger">删除</button>
+            </a></td>
         </tr>
         </tbody>
     </table>

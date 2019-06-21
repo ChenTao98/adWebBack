@@ -8,6 +8,7 @@ import com.adweb.adweb.entity.CourseExample;
 import com.adweb.adweb.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public int deleteCourse(Course course) {
         int courseId = course.getId();
         courseDao.deleteOption(courseId);

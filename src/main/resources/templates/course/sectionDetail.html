@@ -116,7 +116,6 @@
             <th scope="col">对话顺序号</th>
             <th scope="col">重要程度</th>
             <th scope="col">谁说的</th>
-            <th scope="col">修改</th>
             <th scope="col">删除</th>
         </tr>
         </thead>
@@ -130,8 +129,9 @@
                 <span th:if="${knowledge.getWhoSay()==0}">老师</span>
                 <span th:if="${knowledge.getWhoSay()==1}">学生</span>
             </td>
-            <td><a>修改</a></td>
-            <td><a>删除</a></td>
+            <td><a th:href="${'/course/delete/'+section.getId()+'/'+knowledge.getId()+'/knowledge'}">
+                <button class="btn btn-danger">删除</button>
+            </a></td>
         </tr>
         </tbody>
     </table>
@@ -181,7 +181,8 @@
                 <form method="post" th:action="${'/course/modify/'+section.getId()+'/section'}"
                       enctype="multipart/form-data">
                     <div class="modal-body">
-                        <input type="number" name="orderNumberOld" th:value="${section.getOrderNumber()}" hidden="hidden">
+                        <input type="number" name="orderNumberOld" th:value="${section.getOrderNumber()}"
+                               hidden="hidden">
                         <input type="number" name="chapterId" th:value="${section.getChapterId()}" hidden="hidden">
                         <div class="form-group input-group">
                             <span class="input-group-addon">小节名称</span>
@@ -222,7 +223,9 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <a th:href="${'/course/delete/'+section.getId()+'/section'}"><button type="button" class="btn btn-primary">确认删除</button></a>
+                    <a th:href="${'/course/delete/'+section.getId()+'/section'}">
+                        <button type="button" class="btn btn-primary">确认删除</button>
+                    </a>
                 </div>
             </div>
         </div>

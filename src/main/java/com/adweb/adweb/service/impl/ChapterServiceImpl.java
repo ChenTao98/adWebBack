@@ -8,6 +8,7 @@ import com.adweb.adweb.entity.SectionExample;
 import com.adweb.adweb.service.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
+    @Transactional
     public int modifyChapter(Chapter chapter, Integer oldNumber, Integer courseId) {
         int orderNumber;
         if (chapter.getOrderNumber() != null) {
@@ -70,6 +72,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
+    @Transactional
     public int deleteChapter(Chapter chapter) {
         int chapterId=chapter.getId();
         int courseId=chapter.getCourseId();

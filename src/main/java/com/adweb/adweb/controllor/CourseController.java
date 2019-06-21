@@ -516,7 +516,53 @@ public class CourseController {
         setChoiceQuestionDetail(model, section);
         return "course/choiceQuestionDetail";
     }
-
+    @GetMapping("delete/{sectionId}/{questionId}/choice")
+    public String deleteChoice(@PathVariable()Integer sectionId,@PathVariable()Integer questionId,
+                               Model model,HttpServletRequest httpServletRequest){
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Section section = sectionService.isSectionBelongToTeacher(sectionId, teacherId);
+        if (section == null) {
+            Message.writeMessage(model, Message.SECTION_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        Course course = courseService.getCourseBySection(sectionId);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setChoiceQuestionDetail(model, section);
+            return "course/choiceQuestionDetail";
+        }
+        choiceQuestionService.deleteChoice(questionId);
+        Message.writeMessage(model,Message.SUCCESS);
+        setChoiceQuestionDetail(model,section);
+        return  "course/choiceQuestionDetail";
+    }
+    @GetMapping("delete/{sectionId}/{knowledgeId}/knowledge")
+    public String deleteKnowledge(@PathVariable()Integer sectionId,@PathVariable()Integer knowledgeId,
+                                  Model model,HttpServletRequest httpServletRequest){
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Section section = sectionService.isSectionBelongToTeacher(sectionId, teacherId);
+        Knowledge knowledge=knowledgeService.getKnowledgeById(knowledgeId);
+        if (section == null || knowledge==null) {
+            Message.writeMessage(model, Message.SECTION_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        Course course = courseService.getCourseBySection(sectionId);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setSectionDetail(model,section);
+            return "course/sectionDetail";
+        }
+        if(knowledgeService.deleteKnowledge(sectionId,knowledge)!=1){
+            Message.writeMessage(model, Message.DATABASE_ERROR);
+            setSectionDetail(model,section);
+            return "course/sectionDetail";
+        }
+        Message.writeMessage(model,Message.SUCCESS);
+        setSectionDetail(model,section);
+        return "course/sectionDetail";
+    }
     private void setTeacherCourseModel(Model model, String teacherId) {
         model.addAttribute("list", courseService.getCourseByTeacher(teacherId));
         model.addAttribute("themeList", themeService.getAllTheme());

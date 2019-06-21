@@ -4,6 +4,7 @@ import com.adweb.adweb.dao.ChoiceQuestionDao;
 import com.adweb.adweb.dao.OptionDao;
 import com.adweb.adweb.entity.ChoiceQuestion;
 import com.adweb.adweb.entity.Option;
+import com.adweb.adweb.entity.OptionExample;
 import com.adweb.adweb.service.ChoiceQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,14 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    @Transactional
+    public int deleteChoice(Integer questionId) {
+        OptionExample optionExample=new OptionExample();
+        optionExample.createCriteria().andQuestionIdEqualTo(questionId);
+        optionDao.deleteByExample(optionExample);
+        return choiceQuestionDao.deleteByPrimaryKey(questionId);
     }
 }

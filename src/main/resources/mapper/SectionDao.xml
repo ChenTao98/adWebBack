@@ -92,7 +92,7 @@
             distinct
         </if>
         <include refid="Base_Column_List"/>
-        from section
+        from `section`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -111,29 +111,29 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from section
+        from `section`
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from section
+    delete from `section`
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <delete id="deleteByExample" parameterType="com.adweb.adweb.entity.SectionExample">
-        delete from section
+        delete from `section`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Section"
             useGeneratedKeys="true">
-    insert into section (`name`, summary, order_number, 
+    insert into `section` (`name`, summary, order_number,
       chapter_id)
     values (#{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER}, 
       #{chapterId,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.adweb.adweb.entity.Section"
             useGeneratedKeys="true">
-        insert into section
+        insert into `section`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">
                 `name`,
@@ -164,13 +164,13 @@
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.adweb.adweb.entity.SectionExample" resultType="java.lang.Long">
-        select count(*) from section
+        select count(*) from `section`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update section
+        update `section`
         <set>
             <if test="record.id != null">
                 id = #{record.id,jdbcType=INTEGER},
@@ -193,7 +193,7 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update section
+        update `section`
         set id = #{record.id,jdbcType=INTEGER},
         `name` = #{record.name,jdbcType=VARCHAR},
         summary = #{record.summary,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
         </if>
     </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.adweb.adweb.entity.Section">
-        update section
+        update `section`
         <set>
             <if test="name != null">
                 `name` = #{name,jdbcType=VARCHAR},
@@ -222,7 +222,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.adweb.adweb.entity.Section">
-    update section
+    update `section`
     set `name` = #{name,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
       order_number = #{orderNumber,jdbcType=INTEGER},

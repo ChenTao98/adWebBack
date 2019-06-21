@@ -3,6 +3,7 @@ package com.adweb.adweb.service.impl;
 import com.adweb.adweb.dao.KnowledgeDao;
 import com.adweb.adweb.entity.Knowledge;
 import com.adweb.adweb.entity.KnowledgeExample;
+import com.adweb.adweb.entity.Section;
 import com.adweb.adweb.service.KnowledgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,18 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             return list.get(0).getOrderNumber();
         }
         return 0;
+    }
+
+    @Override
+    @Transactional
+    public int deleteKnowledge(Integer sectionId, Knowledge knowledge) {
+        int knowledgeId=knowledge.getId();
+        knowledgeDao.updateKnowledgeSmaller(knowledge.getOrderNumber(),getLargestKnowledgeOrderNumber(sectionId),sectionId);
+        return knowledgeDao.deleteByPrimaryKey(knowledgeId);
+    }
+
+    @Override
+    public Knowledge getKnowledgeById(Integer knowledgeId) {
+        return knowledgeDao.selectByPrimaryKey(knowledgeId);
     }
 }
