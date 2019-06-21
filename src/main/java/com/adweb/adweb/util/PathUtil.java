@@ -8,9 +8,9 @@ public class PathUtil {
 //    public static final String TEACHER_IMAGE_HTML = "http://localhost:8080/image/teacher/";
 
     // 部署环境
-    public static final String COURSE_IMAGE_UP="/root/ADCourse/static/course/";
-    public static final String TEACHER_IMAGE_UP = "/root/ADCourse/static/teacher/";
+    public static final String COURSE_IMAGE_UP="/root/ADCourse/static/image/course/";
+    public static final String TEACHER_IMAGE_UP = "/root/ADCourse/static/image/teacher/";
 
-    public static final String COURSE_IMAGE_HTML="http://47.102.201.65:18080/course/";
-    public static final String TEACHER_IMAGE_HTML = "http://47.102.201.65:18080/teacher/";
+    public static final String COURSE_IMAGE_HTML="http://47.102.201.65:18080/image/course/";
+    public static final String TEACHER_IMAGE_HTML = "http://47.102.201.65:18080/image/teacher/";
 }
