@@ -6,9 +6,18 @@ import java.util.List;
 
 public interface CourseService {
     List<Course> getCourseByTeacher(String teacherId);
+
     int insertCourse(Course course);
-    Course getCourseById(Integer integer,String teacherId);
+
+    Course getCourseById(Integer integer, String teacherId);
+
     Course getCourseByChapter(Integer chapter);
+
     Course getCourseBySection(Integer section);
-    Course getCourseByStudent(Integer id,String studentID);
+
+    Course getCourseByStudent(Integer id, String studentID);
+
+    int modifyCourse(Course course);
+
+    int deleteCourse(Course course);
 }

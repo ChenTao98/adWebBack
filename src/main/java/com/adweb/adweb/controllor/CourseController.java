@@ -38,7 +38,9 @@ public class CourseController {
     private ChoiceQuestionService choiceQuestionService;
 
     private static final String courseImageUp = PathUtil.COURSE_IMAGE_UP;
+    private static final String courseImageHtml = PathUtil.COURSE_IMAGE_HTML;
     private static final int[] arrayInt = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private static final String[] typeArray = {"web开发", "人工智能", "移动开发", "游戏开发", "运维测试", "互联网", "大数据与云计算", "计算机系统"};
 
     @RequestMapping({"", "index", "/"})
     public String index(Model model, HttpServletRequest httpServletRequest) {
@@ -101,6 +103,99 @@ public class CourseController {
         return "course/index";
     }
 
+    @PostMapping("modify/{courseId}/course")
+    public String modifyCourse(@RequestParam() MultipartFile image, @RequestParam() String name,
+                               @RequestParam() String summary, @RequestParam() String startTime,
+                               @RequestParam() String endTime, @RequestParam() Integer credit,
+                               @RequestParam() String type, @RequestParam() Integer theme, @PathVariable() Integer courseId,
+                               Model model, HttpServletRequest httpServletRequest) {
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Course course = courseService.getCourseById(courseId, teacherId);
+        if (course == null) {
+            Message.writeMessage(model, Message.COURSE_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        if (StringUtil.isEmpty(name) || StringUtil.isEmpty(summary) || StringUtil.isEmpty(startTime)
+                || StringUtil.isEmpty(endTime) || credit == null || StringUtil.isEmpty(type) || theme == null) {
+            Message.writeMessage(model, Message.DATE_ERROR);
+            setCourseDetailModel(model, course);
+            return "course/courseDetail";
+        }
+        Date startTimeDate;
+        Date endTimeDate;
+        try {
+            startTimeDate = StringUtil.simpleDateFormat.parse(startTime);
+            endTimeDate = StringUtil.simpleDateFormat.parse(endTime);
+        } catch (ParseException e) {
+            Message.writeMessage(model, Message.DATE_ERROR);
+            setCourseDetailModel(model, course);
+            return "course/courseDetail";
+        }
+        if (startTimeDate.after(endTimeDate) || credit <= 0) {
+            Message.writeMessage(model, Message.DATA_ERROR);
+            setCourseDetailModel(model, course);
+            return "course/courseDetail";
+        }
+        Course courseModify = new Course(name, summary, null, startTimeDate, endTimeDate, null, credit, type, theme, 0);
+        courseModify.setId(courseId);
+        File file = null;
+        if (!image.isEmpty()) {
+            String fileName = image.getOriginalFilename();
+            String imageSrc = UUID.randomUUID().toString().replaceAll("-", "") + fileName.substring(fileName.lastIndexOf("."));
+            file = new File(courseImageUp + imageSrc);
+            try {
+                image.transferTo(file);
+                courseModify.setImageSrc(imageSrc);
+            } catch (IOException e) {
+                if (file.exists()) {
+                    file.delete();
+                }
+                Message.writeMessage(model, Message.SYSTEM_ERROR);
+                setTeacherCourseModel(model, teacherId);
+                return "course/index";
+            }
+        }
+        if (courseService.modifyCourse(courseModify) != 1) {
+            if (file != null) {
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+            Message.writeMessage(model, Message.DATABASE_ERROR);
+            setCourseDetailModel(model, course);
+            return "course/courseDetail";
+        }
+        if (file != null) {
+            file = new File(courseImageUp + course.getImageSrc());
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        Message.writeMessage(model, Message.SUCCESS);
+        setCourseDetailModel(model, courseService.getCourseById(courseId, teacherId));
+        return "course/courseDetail";
+    }
+
+    @GetMapping("delete/{courseId}/course")
+    public String deleteCourse(@PathVariable() Integer courseId, Model model, HttpServletRequest httpServletRequest) {
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Course course = courseService.getCourseById(courseId, teacherId);
+        if (course == null) {
+            Message.writeMessage(model, Message.COURSE_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        courseService.deleteCourse(course);
+        File file = new File(courseImageUp + course.getImageSrc());
+        if (file.exists()) {
+            file.delete();
+        }
+        Message.writeMessage(model, Message.SUCCESS);
+        setTeacherCourseModel(model, teacherId);
+        return "course/index";
+    }
+
     @GetMapping("{courseId}")
     public String viewCourse(@PathVariable() Integer courseId, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
@@ -157,63 +252,66 @@ public class CourseController {
         setChapterDetail(model, chapter);
         return "course/chapterDetail";
     }
+
     @PostMapping("modify/{chapterId}/chapter")
     public String modifyChapter(@PathVariable() Integer chapterId, @RequestParam() String name, @RequestParam() Integer courseId,
                                 @RequestParam() String summary, @RequestParam() Integer orderNumber,
                                 @RequestParam() Integer orderNumberOld, Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        Chapter chapter=chapterService.isChapterBelongToTeacher(chapterId,teacherId);
-        if(chapter==null){
+        Chapter chapter = chapterService.isChapterBelongToTeacher(chapterId, teacherId);
+        if (chapter == null) {
             Message.writeMessage(model, Message.CHAPTER_NOT_YOURS_ERROR);
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
         if (StringUtil.isEmpty(name) || StringUtil.isEmpty(summary) || orderNumber <= 0) {
             Message.writeMessage(model, Message.DATA_ERROR);
-            setChapterDetail(model,chapter);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
         Course course = courseService.getCourseByChapter(chapterId);
         if (course.getStartTime().before(new Date())) {
             Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
-            setChapterDetail(model,chapter);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
-        Chapter chapterModify=new Chapter(name,summary,null,null);
+        Chapter chapterModify = new Chapter(name, summary, null, null);
         chapterModify.setId(chapterId);
-        if(!orderNumber.equals(orderNumberOld)){
+        if (!orderNumber.equals(orderNumberOld)) {
             chapterModify.setOrderNumber(orderNumber);
         }
-        if(chapterService.modifyChapter(chapterModify,orderNumberOld,courseId)==0){
+        if (chapterService.modifyChapter(chapterModify, orderNumberOld, courseId) == 0) {
             Message.writeMessage(model, Message.DATABASE_ERROR);
-            setChapterDetail(model,chapter);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
         Message.writeMessage(model, Message.SUCCESS);
-        setChapterDetail(model,chapterService.getChapterByChapterId(chapterId));
+        setChapterDetail(model, chapterService.getChapterByChapterId(chapterId));
         return "course/chapterDetail";
     }
+
     @GetMapping("delete/{chapterId}/chapter")
-    public String deleteChapter(@PathVariable()Integer chapterId,
-                                Model model,HttpServletRequest httpServletRequest){
+    public String deleteChapter(@PathVariable() Integer chapterId,
+                                Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
-        Chapter chapter=chapterService.isChapterBelongToTeacher(chapterId,teacherId);
-        if(chapter==null){
-            Message.writeMessage(model,Message.CHAPTER_NOT_YOURS_ERROR);
-            setTeacherCourseModel(model,teacherId);
+        Chapter chapter = chapterService.isChapterBelongToTeacher(chapterId, teacherId);
+        if (chapter == null) {
+            Message.writeMessage(model, Message.CHAPTER_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
-        Course course=courseService.getCourseByChapter(chapterId);
-        if(course.getStartTime().before(new Date())){
-            Message.writeMessage(model,Message.COURSE_HAVE_START_ERROR);
-            setChapterDetail(model,chapter);
+        Course course = courseService.getCourseByChapter(chapterId);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setChapterDetail(model, chapter);
             return "course/chapterDetail";
         }
         chapterService.deleteChapter(chapter);
-        Message.writeMessage(model,Message.SUCCESS);
-        setCourseDetailModel(model,course);
+        Message.writeMessage(model, Message.SUCCESS);
+        setCourseDetailModel(model, course);
         return "course/courseDetail";
     }
+
     @PostMapping("add/{chapterId}/section")
     public String addSection(@PathVariable() Integer chapterId, @RequestParam() String name,
                              @RequestParam() String summary, Model model, HttpServletRequest httpServletRequest) {
@@ -286,7 +384,7 @@ public class CourseController {
         if (!orderNumber.equals(orderNumberOld)) {
             sectionModify.setOrderNumber(orderNumber);
         }
-        if(sectionService.modifySection(sectionModify,orderNumberOld,chapterId)==0){
+        if (sectionService.modifySection(sectionModify, orderNumberOld, chapterId) == 0) {
             Message.writeMessage(model, Message.DATABASE_ERROR);
             setSectionDetail(model, section);
             return "course/sectionDetail";
@@ -295,9 +393,10 @@ public class CourseController {
         setSectionDetail(model, sectionService.getSectionBySectionId(sectionId));
         return "course/sectionDetail";
     }
+
     @GetMapping("delete/{sectionId}/section")
-    public String deleteSection(@PathVariable()Integer sectionId,
-                                Model model,HttpServletRequest httpServletRequest){
+    public String deleteSection(@PathVariable() Integer sectionId,
+                                Model model, HttpServletRequest httpServletRequest) {
         String teacherId = SessionUtil.getTeacherId(httpServletRequest);
         Section section = sectionService.isSectionBelongToTeacher(sectionId, teacherId);
         if (section == null) {
@@ -313,9 +412,10 @@ public class CourseController {
         }
         sectionService.deleteSection(section);
         Message.writeMessage(model, Message.SUCCESS);
-        setChapterDetail(model,chapterService.getChapterByChapterId(section.getChapterId()));
+        setChapterDetail(model, chapterService.getChapterByChapterId(section.getChapterId()));
         return "course/chapterDetail";
     }
+
     @PostMapping("add/{sectionId}/knowledge")
     public String addKnowledge(@PathVariable() Integer sectionId, @RequestParam("content") String[] content,
                                @RequestParam(value = "teacher", required = false) Integer[] teacher, @RequestParam("important") Integer[] important,
@@ -405,7 +505,6 @@ public class CourseController {
             } else {
                 list.add(new Option(option[i], 0));
             }
-
         }
         ChoiceQuestion choiceQuestion = new ChoiceQuestion(sectionId, question, answerKey, list);
         if (choiceQuestionService.insertQuestion(choiceQuestion) != 1) {
@@ -421,12 +520,16 @@ public class CourseController {
     private void setTeacherCourseModel(Model model, String teacherId) {
         model.addAttribute("list", courseService.getCourseByTeacher(teacherId));
         model.addAttribute("themeList", themeService.getAllTheme());
+        model.addAttribute("typeList", typeArray);
     }
 
     private void setCourseDetailModel(Model model, Course course) {
+        course.setImageSrc(courseImageHtml + course.getImageSrc());
         model.addAttribute("course", course);
         List<Chapter> list = chapterService.getChapterByCourse(course.getId());
         model.addAttribute("list", list);
+        model.addAttribute("themeList", themeService.getAllTheme());
+        model.addAttribute("typeList", typeArray);
     }
 
     private void setChapterDetail(Model model, Chapter chapter) {
