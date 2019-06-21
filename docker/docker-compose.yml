@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      MYSQL_DATABASE: 'adweb_project'
+      MYSQL_USER: 'adweb'
+      MYSQL_PASSWORD: '123456'
+    volumes:
+      - "./db:/var/lib/mysql"
+    networks:
+      - ad_web
+  api-and-back:
+    image: api-and-back:latest
+    volumes:
+      - "./static:/root/ADCourse/static"
+    depends_on:
+      - mysql
+    ports:
+      - "18080:18080"
+      - "18081:18081"
+    networks:
+      - ad_web
+networks:
+  ad_web:
