@@ -91,7 +91,10 @@
     <br/>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addChapter">
-        添加知识点
+        添加对话
+    </button>
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#insertKnowledge">
+        插入对话
     </button>
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modifySection">
         修改小节
@@ -165,6 +168,41 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                         <button type="submit" class="btn btn-primary">添加对话</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="insertKnowledge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">添加对话</h4>
+                </div>
+                <form method="post" th:action="${'/course/insert/'+section.getId()+'/knowledge'}"
+                      enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group input-group row-with-check">
+                            <input type="text" class="form-control" name="content" placeholder="对话内容" maxlength=255 required>
+                            <select name="important" class="form-control">
+                                <option value="0">最重要</option>
+                                <option value="1">很重要</option>
+                                <option value="2" selected>一般</option>
+                                <option value="3">不重要</option>
+                            </select>
+                            <div>
+                                <input name="teacher" type="checkbox" value="0"><span>老师</span>
+                            </div>
+                        </div>
+                        <div class="form-group input-group row-with-check">
+                            <input type="number" class="form-control" name="orderNumber" placeholder="顺序号" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">插入对话</button>
                     </div>
                 </form>
             </div>
