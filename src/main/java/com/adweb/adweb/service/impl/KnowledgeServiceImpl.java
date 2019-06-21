@@ -24,6 +24,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     }
 
     @Override
+    @Transactional
     public int insertKnowledge(Knowledge knowledge) {
         int sectionId = knowledge.getSectionId();
         int order = knowledge.getOrderNumber();
