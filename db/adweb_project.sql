@@ -30,7 +30,7 @@ SET time_zone = "+08:00";
 
 CREATE TABLE `chapter` (
   `id` int(11) NOT NULL COMMENT '章的id',
-  `name` varchar(11) NOT NULL COMMENT '章名',
+  `name` varchar(255) NOT NULL COMMENT '章名',
   `summary` varchar(255) NOT NULL COMMENT '章的简介',
   `order_number` int(11) NOT NULL COMMENT '章的顺序号',
   `course_id` int(11) NOT NULL COMMENT '章对应课程的id'
@@ -68,14 +68,14 @@ CREATE TABLE `collection` (
 
 CREATE TABLE `course` (
   `id` int(11) NOT NULL COMMENT '课程的id',
-  `name` varchar(31) NOT NULL COMMENT '课程名字',
+  `name` varchar(100) NOT NULL COMMENT '课程名字',
   `summary` varchar(255) NOT NULL COMMENT '课程简介',
   `teacher_id` varchar(255) NOT NULL COMMENT '老师的id',
   `start_time` datetime NOT NULL COMMENT '课程开始时间',
   `end_time` datetime NOT NULL COMMENT '课程结束时间',
   `image_src` varchar(100) NOT NULL COMMENT '图片路径',
   `credit` int(11) NOT NULL COMMENT '学分数',
-  `type` varchar(11) NOT NULL COMMENT '课程种类（如数学，物理）',
+  `type` varchar(100) NOT NULL COMMENT '课程种类（如数学，物理）',
   `theme_id` int(31) NOT NULL COMMENT '主题id，表示属于哪个系列',
   `order_number` int(11) NOT NULL COMMENT '顺序号'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='存储课程的表';
@@ -155,7 +155,7 @@ CREATE TABLE `question_answer` (
 
 CREATE TABLE `section` (
   `id` int(11) NOT NULL COMMENT '小节的id',
-  `name` varchar(31) NOT NULL COMMENT '小节的名字',
+  `name` varchar(100) NOT NULL COMMENT '小节的名字',
   `summary` varchar(255) NOT NULL COMMENT '小节的摘要',
   `order_number` int(11) NOT NULL COMMENT '小节的顺序号',
   `chapter_id` int(11) NOT NULL COMMENT '小节对应的章节id'
@@ -169,8 +169,8 @@ CREATE TABLE `section` (
 
 CREATE TABLE `student` (
   `open_id` varchar(255) NOT NULL COMMENT '用户id 即微信openid',
-  `name` varchar(31) NOT NULL COMMENT '学生姓名',
-  `email` varchar(31) NOT NULL COMMENT '登录邮箱',
+  `name` varchar(100) NOT NULL COMMENT '学生姓名',
+  `email` varchar(100) NOT NULL COMMENT '登录邮箱',
   `sex` varchar(31) NOT NULL COMMENT '性别 male或female',
   `revised_credits` int(31) NOT NULL COMMENT '已修学分'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='学生表';
@@ -183,9 +183,9 @@ CREATE TABLE `student` (
 
 CREATE TABLE `teacher` (
   `open_id` varchar(255) NOT NULL COMMENT '老师的id',
-  `name` varchar(31) NOT NULL COMMENT '老师的名字',
+  `name` varchar(100) NOT NULL COMMENT '老师的名字',
   `password` varchar(255) NOT NULL COMMENT '登录密码',
-  `email` varchar(31) NOT NULL COMMENT '登录邮箱'
+  `email` varchar(100) NOT NULL COMMENT '登录邮箱'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -207,7 +207,7 @@ CREATE TABLE `teacher_avatar` (
 
 CREATE TABLE `theme` (
   `id` int(11) NOT NULL COMMENT '主题id',
-  `name` varchar(11) NOT NULL COMMENT '主题名字',
+  `name` varchar(100) NOT NULL COMMENT '主题名字',
   `summary` varchar(255) NOT NULL COMMENT '主题简介',
   `image_url` varchar(100) NOT NULL COMMENT '主题的图片路径'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='主题表';

@@ -116,6 +116,11 @@ public class CourseController {
             setTeacherCourseModel(model, teacherId);
             return "course/index";
         }
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setCourseDetailModel(model,course);
+            return "course/courseDetail";
+        }
         if (StringUtil.isEmpty(name) || StringUtil.isEmpty(summary) || StringUtil.isEmpty(startTime)
                 || StringUtil.isEmpty(endTime) || credit == null || StringUtil.isEmpty(type) || theme == null) {
             Message.writeMessage(model, Message.DATE_ERROR);

@@ -130,12 +130,12 @@
                     <div class="modal-body">
                         <div class="form-group input-group">
                             <span class="input-group-addon">章节名称</span>
-                            <input type="text" class="form-control" name="name" placeholder="章节名称"
+                            <input type="text" class="form-control" name="name" placeholder="章节名称" maxlength="30"
                                    aria-describedby="basic-addon1" required>
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon">章节简介</span>
-                            <input type="text" class="form-control" name="summary" placeholder="章节简介"
+                            <input type="text" class="form-control" name="summary" placeholder="章节简介" maxlength="100"
                                    aria-describedby="basic-addon1" required>
                         </div>
                     </div>
@@ -159,12 +159,12 @@
                     <div class="modal-body">
                         <div class="form-group input-group">
                             <span class="input-group-addon">课程名称</span>
-                            <input type="text" class="form-control" name="name" placeholder="课程名称"
+                            <input type="text" class="form-control" name="name" placeholder="课程名称" maxlength="30"
                                    aria-describedby="basic-addon1" th:value="${course.getName()}" required>
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon">课程简介</span>
-                            <input type="text" class="form-control" name="summary" placeholder="课程简介"
+                            <input type="text" class="form-control" name="summary" placeholder="课程简介" maxlength="100"
                                    aria-describedby="basic-addon1" th:value="${course.getSummary()}" required>
                         </div>
                         <div class="form-group input-group">
