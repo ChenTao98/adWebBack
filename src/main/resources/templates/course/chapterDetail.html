@@ -62,9 +62,17 @@
     </table>
     <br/>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addChapter">
         添加小节
     </button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modifySection">
+        修改章节
+    </button>
+    <a th:href="${'/course/'+chapter.getCourseId()}">
+        <button type="button" class="btn btn-lg btn-info" data-toggle="modal">
+            返回课程
+        </button>
+    </a>
     <br/>
     <table class="table table-bordered table-striped">
         <caption th:text="'小节数: ' + ${list.size()} + ''"></caption>

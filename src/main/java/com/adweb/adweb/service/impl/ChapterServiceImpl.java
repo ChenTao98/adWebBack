@@ -41,4 +41,9 @@ public class ChapterServiceImpl implements ChapterService {
     public Chapter isChapterBelongToTeacher(Integer chapterId, String teacherId) {
         return chapterDao.isChapterBelongToTeacher(chapterId,teacherId);
     }
+
+    @Override
+    public Chapter getChapterByChapterId(Integer chapterId) {
+        return chapterDao.selectByPrimaryKey(chapterId);
+    }
 }

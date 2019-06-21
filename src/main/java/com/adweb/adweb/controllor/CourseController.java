@@ -203,6 +203,63 @@ public class CourseController {
         return "course/sectionDetail";
     }
 
+    @PostMapping("modify/{sectionId}/section")
+    public String modifySection(@PathVariable() Integer sectionId, @RequestParam() String name, @RequestParam() Integer chapterId,
+                                @RequestParam() String summary, @RequestParam() Integer orderNumber,
+                                @RequestParam() Integer orderNumberOld, Model model, HttpServletRequest httpServletRequest) {
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Section section = sectionService.isSectionBelongToTeacher(sectionId, teacherId);
+        if (section == null) {
+            Message.writeMessage(model, Message.SECTION_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        if (StringUtil.isEmpty(name) || StringUtil.isEmpty(summary) || orderNumber <= 0) {
+            Message.writeMessage(model, Message.DATA_ERROR);
+            setSectionDetail(model, section);
+            return "course/sectionDetail";
+        }
+        Course course = courseService.getCourseBySection(sectionId);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setSectionDetail(model, section);
+            return "course/sectionDetail";
+        }
+        Section sectionModify = new Section(name, summary, null, null);
+        sectionModify.setId(sectionId);
+        if (!orderNumber.equals(orderNumberOld)) {
+            sectionModify.setOrderNumber(orderNumber);
+        }
+        if(sectionService.modifySection(sectionModify,orderNumberOld,chapterId)==0){
+            Message.writeMessage(model, Message.DATABASE_ERROR);
+            setSectionDetail(model, section);
+            return "course/sectionDetail";
+        }
+        Message.writeMessage(model, Message.SUCCESS);
+        setSectionDetail(model, sectionService.getSectionBySectionId(sectionId));
+        return "course/sectionDetail";
+    }
+    @GetMapping("delete/{sectionId}/section")
+    public String deleteSection(@PathVariable()Integer sectionId,
+                                Model model,HttpServletRequest httpServletRequest){
+        String teacherId = SessionUtil.getTeacherId(httpServletRequest);
+        Section section = sectionService.isSectionBelongToTeacher(sectionId, teacherId);
+        if (section == null) {
+            Message.writeMessage(model, Message.SECTION_NOT_YOURS_ERROR);
+            setTeacherCourseModel(model, teacherId);
+            return "course/index";
+        }
+        Course course = courseService.getCourseBySection(sectionId);
+        if (course.getStartTime().before(new Date())) {
+            Message.writeMessage(model, Message.COURSE_HAVE_START_ERROR);
+            setSectionDetail(model, section);
+            return "course/sectionDetail";
+        }
+        sectionService.deleteSection(section);
+        Message.writeMessage(model, Message.SUCCESS);
+        setChapterDetail(model,chapterService.getChapterByChapterId(section.getChapterId()));
+        return "course/chapterDetail";
+    }
     @PostMapping("add/{sectionId}/knowledge")
     public String addKnowledge(@PathVariable() Integer sectionId, @RequestParam("content") String[] content,
                                @RequestParam(value = "teacher", required = false) Integer[] teacher, @RequestParam("important") Integer[] important,

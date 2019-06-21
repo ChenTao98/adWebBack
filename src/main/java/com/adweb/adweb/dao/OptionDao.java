@@ -27,4 +27,5 @@ public interface OptionDao {
     int updateByPrimaryKeySelective(Option record);
 
     int updateByPrimaryKey(Option record);
+    int deleteInQuestionId(Integer sectionId);
 }
