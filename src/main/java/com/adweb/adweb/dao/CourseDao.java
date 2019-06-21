@@ -2,7 +2,9 @@ package com.adweb.adweb.dao;
 
 import com.adweb.adweb.entity.Course;
 import com.adweb.adweb.entity.CourseExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -28,6 +30,18 @@ public interface CourseDao {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
     Course getCourseByChapter(Integer chapterId);
+
     Course getCourseBySection(Integer sectionId);
+
+    Course getCourseDetailById(@Param("courseId") Integer courseId, @Param("studentId") String studentId);
+
+    int deleteOption(Integer courseId);
+
+    int deleteChoice(Integer courseId);
+
+    int deleteKnowledge(Integer courseId);
+
+    int deleteSection(Integer courseId);
 }

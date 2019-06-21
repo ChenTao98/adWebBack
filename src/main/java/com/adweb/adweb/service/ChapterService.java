@@ -9,4 +9,7 @@ public interface ChapterService {
     int insertChapter(Chapter chapter);
     int getLargestChapterOrderName(Integer courseId);
     Chapter isChapterBelongToTeacher(Integer chapterId,String teacherId);
+    Chapter getChapterByChapterId(Integer chapterId);
+    int modifyChapter(Chapter chapter,Integer oldNumber,Integer courseId);
+    int deleteChapter(Chapter chapter);
 }

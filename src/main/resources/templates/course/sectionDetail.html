@@ -83,19 +83,27 @@
             <td th:text="${section.getSummary()}" class="wrapTd"></td>
         </tr>
         <tr>
-            <td class="leftTd">章节序号</td>
+            <td class="leftTd">小节序号</td>
             <td th:text="${section.getOrderNumber()}" class="wrapTd"></td>
         </tr>
         </tbody>
     </table>
     <br/>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChapter">
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addChapter">
         添加知识点
+    </button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modifySection">
+        修改小节
     </button>
     <a th:href="${'/course/choice/'+section.getId()}">
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal">
             查看选择题
+        </button>
+    </a>
+    <a th:href="${'/course/chapter/'+section.getChapterId()}">
+        <button type="button" class="btn btn-lg btn-info" data-toggle="modal">
+            返回章节
         </button>
     </a>
     <br/>
@@ -162,6 +170,64 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modifySection" tabindex="-1" role="dialog" aria-labelledby="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModal">修改小节</h4>
+                </div>
+                <form method="post" th:action="${'/course/modify/'+section.getId()+'/section'}"
+                      enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="number" name="orderNumberOld" th:value="${section.getOrderNumber()}" hidden="hidden">
+                        <input type="number" name="chapterId" th:value="${section.getChapterId()}" hidden="hidden">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">小节名称</span>
+                            <input type="text" class="form-control" name="name" placeholder="小节名称"
+                                   aria-describedby="basic-addon1" th:value="${section.getName()}" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">小节摘要</span>
+                            <input type="text" class="form-control" name="summary" placeholder="小节摘要"
+                                   aria-describedby="basic-addon1" th:value="${section.getSummary()}" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">顺序号</span>
+                            <input type="number" class="form-control" name="orderNumber" placeholder="顺序号"
+                                   aria-describedby="basic-addon1" th:value="${section.getOrderNumber()}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">修改小节</button>
+                        <button type="button" class="btn btn-primary btn-danger" data-toggle="modal"
+                                data-target="#delete">
+                            删除小节
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalmyModalDelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalDelete">警告：删除后无法恢复</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <a th:href="${'/course/delete/'+section.getId()+'/section'}"><button type="button" class="btn btn-primary">确认删除</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div id="footer">

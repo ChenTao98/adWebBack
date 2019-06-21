@@ -1,6 +1,7 @@
 package com.adweb.adweb.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * chapter
@@ -129,5 +130,15 @@ public class Chapter implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+    //    自己添加
+    private List<Section> sectionList;
+
+    public List<Section> getSectionList() {
+        return sectionList;
+    }
+
+    public void setSectionList(List<Section> sectionList) {
+        this.sectionList = sectionList;
     }
 }

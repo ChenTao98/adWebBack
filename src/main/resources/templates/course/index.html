@@ -105,7 +105,7 @@
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon">结束时间</span>
-                            <input type="date" class="form-control" name="endTime" placeholder="起始时间"
+                            <input type="date" class="form-control" name="endTime" placeholder="结束时间"
                                    aria-describedby="basic-addon1" required>
                         </div>
                         <div class="form-group input-group">
@@ -116,12 +116,7 @@
                         <div class="form-group input-group">
                             <span class="input-group-addon">课程分类</span>
                             <select name="type" class="form-control">
-                                <option value="web开发" selected>web开发</option>
-                                <option value="人工智能">人工智能</option>
-                                <option value="移动开发">移动开发</option>
-                                <option value="游戏开发">游戏开发</option>
-                                <option value="运维测试">运维测试</option>
-                                <option value="互联网">互联网</option>
+                                <option th:each="type: ${typeList}" th:value="${type}" th:text="${type}"></option>
                             </select>
                         </div>
                         <div class="form-group input-group">
@@ -133,7 +128,7 @@
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon">课程图片</span>
-                            <input type="file" class="form-control" name="image" placeholder="学分数"
+                            <input type="file" class="form-control" name="image"]
                                    aria-describedby="basic-addon1" accept="image/*" required>
                         </div>
                     </div>

@@ -2,7 +2,9 @@ package com.adweb.adweb.dao;
 
 import com.adweb.adweb.entity.Section;
 import com.adweb.adweb.entity.SectionExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SectionDao {
@@ -27,5 +29,10 @@ public interface SectionDao {
     int updateByPrimaryKeySelective(Section record);
 
     int updateByPrimaryKey(Section record);
-    Section isSectionBelongToTeacher(@Param("sectionId") Integer sectionId,@Param("teacherId") String teacherId);
+
+    Section isSectionBelongToTeacher(@Param("sectionId") Integer sectionId, @Param("teacherId") String teacherId);
+
+    int updateSectionSmaller(@Param("small") Integer small, @Param("large") Integer large, @Param("chapter") Integer chapter);
+
+    int updateSectionLarger(@Param("small") Integer small, @Param("large") Integer large, @Param("chapter") Integer chapter);
 }

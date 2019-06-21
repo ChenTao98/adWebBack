@@ -28,4 +28,9 @@ public interface ChapterDao {
 
     int updateByPrimaryKey(Chapter record);
     Chapter isChapterBelongToTeacher(@Param("chapterId") Integer chapterId,@Param("teacherId") String teacherId);
+    int updateChapterSmaller(@Param("small") Integer small, @Param("large") Integer large, @Param("course") Integer course);
+    int updateChapterLarger(@Param("small") Integer small, @Param("large") Integer large, @Param("course") Integer course);
+    int deleteOption(Integer chapterId);
+    int deleteChoice(Integer chapterId);
+    int deleteKnowledge(Integer chapterId);
 }
