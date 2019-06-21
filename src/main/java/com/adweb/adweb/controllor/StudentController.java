@@ -91,6 +91,11 @@ public class StudentController {
 
     private void setCourseOneStudentModel(Model model, Integer courseId, String studentId) {
         Course courseDetail = courseService.getCourseByStudent(courseId,studentId);
+        if(courseDetail==null){
+            model.addAttribute("testStatus",0);
+            return;
+        }
+        model.addAttribute("testStatus",1);
         model.addAttribute("courseName", courseDetail.getName());
         model.addAttribute("courseId", courseDetail.getId());
         model.addAttribute("list", courseDetail.getChapterList());

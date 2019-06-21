@@ -65,7 +65,7 @@
     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addChapter">
         添加小节
     </button>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modifySection">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modify">
         修改章节
     </button>
     <a th:href="${'/course/'+chapter.getCourseId()}">
@@ -125,6 +125,63 @@
                         <button type="submit" class="btn btn-primary">添加小节</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModal">修改章节</h4>
+                </div>
+                <form method="post" th:action="${'/course/modify/'+chapter.getId()+'/chapter'}"
+                      enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="number" name="orderNumberOld" th:value="${chapter.getOrderNumber()}" hidden="hidden">
+                        <input type="number" name="courseId" th:value="${chapter.getCourseId()}" hidden="hidden">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">章节名称</span>
+                            <input type="text" class="form-control" name="name" placeholder="章节名称"
+                                   aria-describedby="basic-addon1" th:value="${chapter.getName()}" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">章节摘要</span>
+                            <input type="text" class="form-control" name="summary" placeholder="章节摘要"
+                                   aria-describedby="basic-addon1" th:value="${chapter.getSummary()}" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">顺序号</span>
+                            <input type="number" class="form-control" name="orderNumber" placeholder="顺序号"
+                                   aria-describedby="basic-addon1" th:value="${chapter.getOrderNumber()}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">修改章节</button>
+                        <button type="button" class="btn btn-primary btn-danger" data-toggle="modal"
+                                data-target="#delete">
+                            删除章节
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalmyModalDelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalDelete">警告：删除后无法恢复</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <a th:href="${'/course/delete/'+chapter.getId()+'/chapter'}"><button type="button" class="btn btn-primary">确认删除</button></a>
+                </div>
             </div>
         </div>
     </div>
