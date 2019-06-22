@@ -6,6 +6,8 @@
 
 ### 教师端使用说明:[教师端使用说明](https://github.com/ChenTao98/adWebBack/blob/master/%E6%95%99%E5%B8%88%E7%AB%AF%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md)
 
+##### 当前项目是[总项目](https://github.com/zhaoyangyingmu/ADWebDocuments)的一个分支。
+
 ---
 
 ### 1. 项目组织及文件说明
