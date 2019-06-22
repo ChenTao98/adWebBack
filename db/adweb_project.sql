@@ -30,7 +30,7 @@ SET time_zone = "+08:00";
 
 CREATE TABLE `chapter` (
   `id` int(11) NOT NULL COMMENT '章的id',
-  `name` varchar(255) NOT NULL COMMENT '章名',
+  `name` varchar(100) NOT NULL COMMENT '章名',
   `summary` varchar(255) NOT NULL COMMENT '章的简介',
   `order_number` int(11) NOT NULL COMMENT '章的顺序号',
   `course_id` int(11) NOT NULL COMMENT '章对应课程的id'

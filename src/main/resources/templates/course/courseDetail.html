@@ -98,20 +98,20 @@
         <caption th:text="'章节数: ' + ${list.size()} + ''"></caption>
         <thead class="thead-dark">
         <tr>
-            <th scope="col" th:text="'#'+${list.size()}"></th>
-            <th scope="col">章节名称</th>
+            <th style="width: 5%" scope="col" th:text="'#'+${list.size()}"></th>
+            <th style="width: 10%" scope="col">章节名称</th>
             <th scope="col">章节简介</th>
-            <th scope="col">章节顺序号</th>
-            <th scope="col">查看</th>
+            <th style="width: 10%" scope="col">顺序号</th>
+            <th style="width: 10%" scope="col">查看</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="chapter,status: ${list}">
-            <td class="wrapTd" th:text="|${status.count}|"></td>
-            <td class="wrapTd" th:text="${chapter.getName()}"></td>
+            <td style="width: 5%" class="wrapTd" th:text="|${status.count}|"></td>
+            <td style="width: 10%" class="wrapTd" th:text="${chapter.getName()}"></td>
             <td class="wrapTd" th:text="${chapter.getSummary()}"></td>
-            <td class="wrapTd" th:text="${chapter.getOrderNumber()}"></td>
-            <td><a th:href="${'/course/chapter/'+chapter.getId()}">查看</a></td>
+            <td style="width: 10%" class="wrapTd" th:text="${chapter.getOrderNumber()}"></td>
+            <td style="width: 10%"><a th:href="${'/course/chapter/'+chapter.getId()}">查看</a></td>
         </tr>
         </tbody>
     </table>
