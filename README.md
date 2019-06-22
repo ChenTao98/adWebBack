@@ -12,6 +12,11 @@
 
 ```
 │          
+├─docker
+|    ├─ command.sh 用于启动两个jar包
+|    ├─ docker-compose.yml 用于dockerc-compose部署
+|    └─ Dockerfile 用于镜像的创建
+│          
 ├─db
 │     adweb_project.sql                                  数据库建表sql语句
 │      
